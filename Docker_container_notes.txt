@@ -88,7 +88,9 @@ We will work with Docker so we need to install locally.
 Linux supports Docker natively.
 Mac and Windows - you need Docker Desktop.
 
+############
 
+Find the Docker main commands text file next in the repo!!!!
 
 
 
