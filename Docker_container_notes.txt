@@ -1,17 +1,12 @@
 What is a container?
-
 A way to package application with all the necessary dependencies and configurations.
-
 Portable artifact, easily shared and moved around.
-
 Makes development and deployment more efficient.
-
 
 Where do containers live?
 - in a container repository. 
 - many companies have their own private repositories.
 - there are also public repositories for Docker. DockerHUB.
-
 
 How did containers improve the development process?
 - Application development - 
@@ -23,8 +18,6 @@ Installation process would look different on each OS environment.
 Many steps where something could go wrong.
 The developers would have an artifact with instructions on how to install on a server. Some kind of database server. These would be given to the Operations teams. The issue is that all of these need to be installed on an OS.
 This could lead to dependencies version conflicts. There were sometimes misunderstandings. Textual guide of deployment. Configuration on the server needed.
-
-
 
 After containers: <--------------
 No longer needed to install on own OS, so own isolated environment. 
@@ -85,6 +78,12 @@ Server - Container Runtime - pulling images, managing container lifecycle
 	- build images - build own Docker images.
 	
 Many functionalities in 1 application.
+
+Need only a container runtime? Use containerD or Cri-O.
+
+Need to build an image? Use BuildAH.
+
+We will work with Docker so we need to install locally.
 
 
 
