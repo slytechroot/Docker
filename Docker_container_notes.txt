@@ -85,6 +85,9 @@ Need to build an image? Use BuildAH.
 
 We will work with Docker so we need to install locally.
 
+Linux supports Docker natively.
+Mac and Windows - you need Docker Desktop.
+
 
 
 
