@@ -52,7 +52,32 @@ Docker Image - the actual package. The actual artifact, that can be moved around
 vs.
 Docker Container - the actually start the application. Container environment is created and running on the machine. This IS running. 
 
+####################
 
+Docker vs virtual machine <--------------
+- Docker on OS level
+- different level of abstractions
+- Why Linux-based docker containers don't run on Windows!!!!!
+
+Docker - virtualizes the application layer.
+
+Virtual machine - virtualizes the applications and OS kernel layers!!!
+
+Size: Docker images are much smaller, because they only implement 1 layer. 
+Speed: Docker containers start and run much faster.
+
+Compatibility: VM of any OS can run on any OS host, but you cannot do this with Docker.
+The issue with running a Docker, is that it is not compatible with the OS kernel!!!
+You can install the Docker Toolbox, to abstract the kernel, so that you can run your docker on different OS types.
+
+###########
+
+Docker architecture and its components: <---------------
+
+Containers exists alread before Docker.
+Docker made container popular.
+
+You first install the Docker Engine (pulling images, managing images and containers), the API (interacting with Docker Server) and the CLI (command line interface: client to execute docker commands).
 
 
 
