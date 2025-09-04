@@ -79,6 +79,15 @@ Docker made container popular.
 
 You first install the Docker Engine (pulling images, managing images and containers), the API (interacting with Docker Server) and the CLI (command line interface: client to execute docker commands).
 
+Server - Container Runtime - pulling images, managing container lifecycle
+	- Volumes - persisting data
+	- Network - configuring network for container communication
+	- build images - build own Docker images.
+	
+Many functionalities in 1 application.
+
+
+
 
 
 
