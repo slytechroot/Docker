@@ -1,0 +1,14 @@
+Main Commands Part 2
+
+Overview:
+Container vs Image
+Version and Tag
+Docker Commands
+
+docker pull
+docker run
+docker start
+docker stop
+docker ps
+docker exec-it
+docker logs
