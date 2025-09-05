@@ -27,6 +27,53 @@ docker images
 docker run redis
 docker ps
 (notice the Container ID, Image, Command, Status, ports, etc).
+Ctrl+X to terminate running docker container.
+- run again 'docker ps' and notice that no containers are running.
+
+- run in detached mode.
+docker run -d redis
+(notice the running container ID first several characters)
+docker stop <container-ID>
+or:
+docker start <container-ID>
+
+docker ps
+docker ps -a
+(will show you ALL containers running or not running)
+
+- specify a redis version (with a tag) and start at the same time.
+docker run redis:4.0
+
+- if you noticed 2 containers running on the same port, you need to understand the difference between Container Port and Host Port.
+
+Multiple containers can run on your host machine.
+Your laptop has only certain ports available.
+You will get a conflict when same port on host machine is opened. The containers can listen to the same ports, but the ports you BIND to the Host Ports, needs to be different; this is where the conflict happens. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
