@@ -12,3 +12,5 @@ docker stop
 docker ps
 docker exec-it
 docker logs
+
+Debug Container Commands:
