@@ -50,6 +50,25 @@ Multiple containers can run on your host machine.
 Your laptop has only certain ports available.
 You will get a conflict when same port on host machine is opened. The containers can listen to the same ports, but the ports you BIND to the Host Ports, needs to be different; this is where the conflict happens. 
 
+- we need to bind the binding of the ports during the run commands, like so:
+- p = port of the host
+- so port 6379 is the container port, and 6000 is the host binding port.
+docker run -p  6000:6379 redis
+docker ps
+(under PORTS you will see the bindings)
+
+- run in detached mode:
+docker run -p 6000:6379 -d redis
+
+(this will get an error because of port allocation)
+docker run -p 6000:6379 redis:4.0
+and this will not, because of detached mode and changing the binding port to 60001:
+docker run -p 6001:6379 -d redis:4.0
+
+#################
+
+
+
 
 
 
