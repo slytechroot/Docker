@@ -1,0 +1,37 @@
+Overview:
+Container vs Image
+Version and Tag
+Docker Commands
+
+docker pull
+docker run
+docker start
+docker stop
+docker ps
+docker exec-it
+docker logs
+
+--- Container vs Image differences
+Container - is a running environment for IMAGE. It has a file system, environment configs, application image.
+Application image: postgres, redis, mongo.
+Port binded: talk to application running inside of container.
+Virtual file system.
+
+Demo....
+docker pull redis
+docker images
+- the tag is the version of the image.
+- so far we've only worked with images, so redis is not running.
+
+- let's get redis running, so let's create a container containing the redis image
+docker run redis
+docker ps
+(notice the Container ID, Image, Command, Status, ports, etc).
+
+
+
+
+
+
+
+
