@@ -3,8 +3,8 @@ Main Commands Part 2
 Overview:
 Container vs Image
 Version and Tag
-Docker Commands
 
+Docker Commands:
 docker pull
 docker run
 docker start
@@ -14,7 +14,39 @@ docker exec-it
 docker logs
 
 Debug Container Commands:
+docker run -d
+docker images
+!!!!!
+docker ps
+#check the logs
+docker logs <container-ID>
+docker logs <container_name>
 
+- name your container what you want:
+docker run -d -p 6001:6379 --name redis-older redis:4.0
+docker ps
+docker stop <container-ID>
+
+#another docker command for debugging
+docker ps
+- if you want to check something in the container itself, such as check the files, etc. We need to (-it) interact with the terminal.
+docker exec -it <container-name> /bin/bash
+ls
+pwd
+cd /
+exit
+- you can also use the name as well. 
+docker exec -it redis-older /bin/bash
+
+#create a new container
+docker run redis:latest
+docker run -d -p --name .....
+docker ps -a
+#restart a stopped container
+docker start <container-id> 
+docker ps
+
+###############
 
 
 
