@@ -14,3 +14,35 @@ docker exec-it
 docker logs
 
 Debug Container Commands:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
