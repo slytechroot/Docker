@@ -1,0 +1,57 @@
+Run NEXUS as a DOCKER Container
+
+- Steps to run Nexus on Droplet
+Install Java
+Download Nexus package
+Untar Nexus package
+Create Nexus user
+Give User permissions
+Run Nexus with Nexus User
+Finally... run Nexus.
+
+- the easiest way is to 'Run Nexus as a Docker Container' as a DigitalOcean droplet.
+- Create a new droplet in DigitalOcean.
+- Configure the firewall to allow port 22 SSH under Networking.
+
+docker 
+(not found)
+apt update
+apt install docker
+docker
+(got a list of docker commands)
+
+- Find the Nexus image at hub.docker.com - sonatype/nexus3
+- we're going to run the data with persistent data retention - docker volume.
+- we need to configure a volume for it - a mounted volume
+
+#create docker volume
+docker volume create --name nexus-data
+
+#start the docker Nexus container
+docker run -d -p 8081:8081 --name nexus -v nexus-data:/nexus-data sonatype/nexus3
+
+netstat -lnpt
+(looking for port 8081)
+
+docker ps
+docker exec -it <container-id> /bin/bash
+$whoami
+nexus
+(reduced permissions, non-root)
+
+#check on the volumes
+docker volume ls
+docker inspect nexus-data
+
+#compare this data with the container path below
+ls /var/snap/docker/common/var-lib-docker/volumes/nexus-data/_data
+
+vs. 
+#login to the container
+docker exec -it <container-id> /bin/bash
+ls
+ls nexus-data/
+
+- you should see the same information, files and folders in between the 2 locations. 
+
+#######################
