@@ -1,0 +1,108 @@
+docker-volumes-persisting-data:
+
+Overview:
+When do we need Docker Volumes?
+What is Docker Volumes?
+3 Volume Types
+Docker Volumes in docker-compose file.
+
+For data persistence use:
+- databases
+- other stateful applications.
+
+When do we need Docker Volumes?
+
+Host:
+Container
+- virtual file system
+/var/lib/mysql/data
+- data would be gone when restarting or removing the container.
+
+Host File system (physical)
+/home/mount/data
+- data gets automatically replicated from the /var/lib/mysql/data
+
+3 types of docker volumes <-------------
+
+Host Volumes:
+docker run -v /home/mount/data:/var/lib/mysql/data
+- you decide where on the host file system there reference is made.
+
+Host anonymous volumes:
+- automatically created by Docker
+docker run -v /var/lib/mysql/data
+
+Named Volumes:
+- you can reference the volume by name.
+docker run -v name:/var/lib/mysql/data
+
+The mostly used one is the Named VOLUMES in PRODUCTION!!!!
+
+Docker Volumes in docker-compose:
+services:
+  volumes:
+	- db-data:/var/lib/mysql/data
+volumes:
+  db-data
+
+
+
+###############
+
+DEMO!!!!!!!!
+
+- starting point - no persistence
+- using 4nodockerpersistentvolume.yaml
+- starting the application
+npm run start
+> app@1.0.0 start
+> node server.js
+> app listening on port 3000!
+
+#########
+
+Define Names Volume in Docker Compose File: <-----------------
+- use file - 3dockerpersistentvolume.yaml
+- we're looking for /data/db in the container for the temporary location.
+- checking inside of the container
+
+docker ps
+docker exec -it 3432h432hj423 sh
+ls /data/db
+(here we can see the data inside of the mongodb database, but of course nothing survives during a reboot and the data gets regenerated every time the container is rebooted)
+
+exit
+
+- 'mongo-data:/data/db' is the location of the mongodb data.
+- the data is replicated vice-versa between 'mongo-data' and '/data/db' during a reboot inside of the container
+
+docker-compose -f 3dockerpersistentvolume.yaml up
+
+The new database and table of users will now survive a reboot of the container. 
+
+docker-compose -f 3dockerpersistentvolume.yaml down
+
+#########
+So where are the Docker Volumes are located? <-----------------
+Docker Volume Locations.
+
+Windows: 
+c:\Programdata\docker\volumes
+
+Linux and MacOS:
+/var/lib/docker/volumes
+
+Docker for Mac creates a Linux virtual machine and stores all the Docker data there!
+
+Browse to it and press enter:
+screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/tty
+ls
+cd /var/lib/docker/volumes
+
+--------------
+
+How to end the screen session - screen: <-----
+Ctrl + a + k
+y
+
+##################

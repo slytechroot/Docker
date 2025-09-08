@@ -1,0 +1,159 @@
+What is a container?
+
+A way to package application with all the necessary dependencies and configurations.
+
+Portable artifact, easily shared and moved around.
+
+Makes development and deployment more efficient.
+
+
+Where do containers live?
+- in a container repository. 
+- many companies have their own private repositories.
+- there are also public repositories for Docker. DockerHUB.
+
+
+How did containers improve the development process?
+- Application development - 
+
+Before the containers: <-----------
+Install most of the services on an OS.
+One installed it on their own local development environment.
+Installation process would look different on each OS environment.
+Many steps where something could go wrong.
+The developers would have an artifact with instructions on how to install on a server. Some kind of database server. These would be given to the Operations teams. The issue is that all of these need to be installed on an OS.
+This could lead to dependencies version conflicts. There were sometimes misunderstandings. Textual guide of deployment. Configuration on the server needed.
+
+
+
+After containers: <--------------
+No longer needed to install on own OS, so own isolated environment. 
+Packaged with all needed configurations.
+One command to install the app in all environments.
+Run same app with 2 different versions.
+Operations and developer working together to package the application in a container.
+No environmental configuration needed on the server. Except Docker Runtime. One needs to run the Docker Runtime on the servers before we can run containers there. A just a one time effort.
+Docker is the most popular. Other container technologies are ContainerD and Cri-O, etc.
+
+Container vs image:
+Containers are layers of images, mostly Linux Base Image, because small in size (alpine:3.10).
+Application image on top of the OS.
+
+No login necessary for public Docker repositories to pull the docket images.
+e.g:
+docker run postgres:9.6
+
+or a different version
+
+docker run postgres:10.10
+
+
+Docker Image - the actual package. The actual artifact, that can be moved around. This is NOT running. 
+vs.
+Docker Container - the actually start the application. Container environment is created and running on the machine. This IS running. 
+
+####################
+
+Docker vs virtual machine <--------------
+- Docker on OS level
+- different level of abstractions
+- Why Linux-based docker containers don't run on Windows!!!!!
+
+Docker - virtualizes the application layer.
+
+Virtual machine - virtualizes the applications and OS kernel layers!!!
+
+Size: Docker images are much smaller, because they only implement 1 layer. 
+Speed: Docker containers start and run much faster.
+
+Compatibility: VM of any OS can run on any OS host, but you cannot do this with Docker.
+The issue with running a Docker, is that it is not compatible with the OS kernel!!!
+You can install the Docker Toolbox, to abstract the kernel, so that you can run your docker on different OS types.
+
+###########
+
+Docker architecture and its components: <---------------
+
+Containers exists alread before Docker.
+Docker made container popular.
+
+You first install the Docker Engine (pulling images, managing images and containers), the API (interacting with Docker Server) and the CLI (command line interface: client to execute docker commands).
+
+Server - Container Runtime - pulling images, managing container lifecycle
+	- Volumes - persisting data
+	- Network - configuring network for container communication
+	- build images - build own Docker images.
+	
+Many functionalities in 1 application.
+
+Need only a container runtime? Use containerD or Cri-O.
+
+Need to build an image? Use BuildAH.
+
+We will work with Docker so we need to install locally.
+
+Linux supports Docker natively.
+Mac and Windows - you need Docker Desktop.
+
+################
+
+Docker main commands: <-------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+

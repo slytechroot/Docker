@@ -1,0 +1,77 @@
+Docker Registry <---------------
+
+Overview:
+- create a Docker Private repository
+- registry options
+- Amazon ECR
+- build & tag an image
+- docker login
+- docker push
+
+######
+
+- the repository for docker is also called 'docker registry'.
+- Go to AWS and look for ECR to create a repository
+- you create a Repository per Image
+- you always have to login to the private repo = docker login
+- if you push from jenkins then you need to give Jenkins your login credentials.
+- so make sure the credentials are configured as prerequisities.
+- you also need the AWS CLIs installed
+
+docker login
+$(aws ecr get-login --no-include-email --region eu-central-1)
+- now it should tell you that you are logged on successfully.
+
+docker build -t my-app .
+
+docker tag my-app:latest
+
+##
+docker images
+docker tag my-app:1.0 432223423432.dkr.eu-central-1.amazonaws.com/my-app:1.0
+#docker tag=rename the image.
+docker images
+(now the image should be renamed)
+docker push 432223423432.dkr.eu-central-1.amazonaws.com/my-app:1.0
+(check in AWS ECR repo if you have the app there)
+
+
+
+##########
+Image Naming in Docker Registries
+registryDomain/imageName:tag
+
+- in DockerHub
+docker pull mongo:4.2
+- the longer command:
+docker pull docker.io/library/mongo:4.2 docker pull 432223423432.dkr.eu-central-1.amazonaws.com/my-app:1.0
+
+- in AWS ECR:
+docker pull 432223423432.dkr.eu-central-1.amazonaws.com/my-app:1.0
+
+
+################
+
+Make some changes to the APP, rebuild and push a new version to AWS repo:
+#building a new image
+docker build -t my-app:1.1 .
+docker login
+docker images
+#we're renaming the app below with version 1.1
+docker tag my-app:1.1 432223423432.dkr.eu-central-1.amazonaws.com/my-app:1.1
+docker images
+docker push 432223423432.dkr.eu-central-1.amazonaws.com/my-app:1.1
+
+#############
+Next Deploy the docker application on a server.
+
+
+
+
+
+
+
+
+
+
+
