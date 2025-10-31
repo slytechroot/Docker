@@ -1,0 +1,40 @@
+Let us first inspect the environment. How many containers are running on this host?
+0
+docker ps -a
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS          PORTS                                                                                NAMES
+918d2a5942c9   nginx:alpine   "/docker-entrypoint.…"   15 seconds ago   Up 13 seconds   0.0.0.0:3456->3456/tcp, :::3456->3456/tcp, 0.0.0.0:38080->80/tcp, :::38080->80/tcp   charming_hugle
+
+What is the image used by the container?
+nginx:alpine
+
+How many unique ports are published on this container (count each port only once even if it appears for IPv4 and IPv6)?
+2
+0.0.0.0:3456->3456/tcp, :::3456->3456/tcp, 0.0.0.0:38080->80/tcp, :::38080->80/tcp
+
+Which of the following ports are mapped on the container side (i.e., exposed inside the container)?
+3456 and 80.
+
+Which of the below ports are published on Host?
+3456 and 38080.
+
+Run an instance of kodekloud/simple-webapp:blue and name the container blue-app, mapping port 8080 on the container to port 38282 on the host
+docker run -d kodekloud/simple-webapp:blue 38282:8080 --name blue-app
+26ea2175f9c6b2194bcd8bc6e2d6c8691a4e01831efed1f004af9203cc7d4cfa
+
+~ ✖ docker run -d kodekloud/simple-webapp:blue                           
+5541545f89242ec0be4d834f61a04cbce7175307aaaaf7e61f13decf722f867f
+
+~ ➜  docker ps                                 
+CONTAINER ID   IMAGE                          COMMAND                  CREATED          STATUS          PORTS                                                                                NAMES
+5541545f8924   kodekloud/simple-webapp:blue   "python app.py"          4 seconds ago    Up 3 seconds                                                                                         exciting_pasteur
+26ea2175f9c6   kodekloud/simple-webapp:blue   "python app.py 38282…"   2 minutes ago    Up 2 minutes                                                                                         angry_fermi
+969adef23785   kodekloud/simple-webapp:blue   "python app.py --nam…"   4 minutes ago    Up 4 minutes                                                                                         dreamy_visvesvaraya
+918d2a5942c9   nginx:alpine                   "/docker-entrypoint.…"   16 minutes ago   Up 16 minutes   0.0.0.0:3456->3456/tcp, :::3456->3456/tcp, 0.0.0.0:38080->80/tcp, :::38080->80/tcp   charming_hugle
+
+~ ✖ docker run -p 38282:8080 kodekloud/simple-webapp:blue            
+ * Serving Flask app "app" (lazy loading)
+ * Environment: production
+   WARNING: Do not use the development server in a production environment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
