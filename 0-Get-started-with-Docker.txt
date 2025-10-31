@@ -1,0 +1,377 @@
+Labs: Basic Docker Commands
+
+What is the version of Docker Server Engine running on the Host?
+docker --version
+Docker version 25.0.5
+
+How many containers are running on this host?
+docker ps
+0
+
+How many images are available on this host?
+docker images
+9
+
+Run a container using the redis image
+NOTE: Run the container in detached mode if you don't want the container to take over your current terminal. This allows your terminal to remain free for other commands, or you can open a new terminal to run the command.
+docker run -d redis
+
+~ ✖ docker ps        
+CONTAINER ID   IMAGE     COMMAND                  CREATED              STATUS              PORTS      NAMES
+83ac7e9c13ae   redis     "docker-entrypoint.s…"   About a minute ago   Up About a minute   6379/tcp   serene_chaum
+
+~ ➜  docker stop 83ac7e9c13ae     
+83ac7e9c13ae
+
+~ ➜  docker ps               
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+How many containers are RUNNING on this host now?
+docker ps
+0
+
+How many containers are RUNNING on this host now?
+We just created a few.
+docker ps
+4
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS          PORTS     NAMES
+b5098c6e9025   alpine         "sleep 1000"             22 seconds ago   Up 21 seconds             happy_jemison
+960fa53e2159   nginx:alpine   "/docker-entrypoint.…"   23 seconds ago   Up 22 seconds   80/tcp    nginx-2
+f7cf50a53795   nginx:alpine   "/docker-entrypoint.…"   23 seconds ago   Up 22 seconds   80/tcp    nginx-1
+52260ac6db2f   ubuntu         "sleep 1000"             24 seconds ago   Up 23 seconds             awesome_northcut
+
+How many containers are PRESENT on the host now?
+Including both Running and Not Running ones
+
+docker ps -a 
+CONTAINER ID   IMAGE          COMMAND                  CREATED              STATUS                          PORTS     NAMES
+de2717451a67   alpine         "/bin/sh"                About a minute ago   Exited (0) About a minute ago             hardcore_keller
+b5098c6e9025   alpine         "sleep 1000"             About a minute ago   Up About a minute                         happy_jemison
+960fa53e2159   nginx:alpine   "/docker-entrypoint.…"   About a minute ago   Up About a minute               80/tcp    nginx-2
+f7cf50a53795   nginx:alpine   "/docker-entrypoint.…"   About a minute ago   Up About a minute               80/tcp    nginx-1
+52260ac6db2f   ubuntu         "sleep 1000"             About a minute ago   Up About a minute                         awesome_northcut
+83ac7e9c13ae   redis          "docker-entrypoint.s…"   3 minutes ago        Exited (0) 2 minutes ago                  serene_chaum
+fc5604d3e670   redis          "docker-entrypoint.s…"   5 minutes ago        Exited (1) 5 minutes ago                  vigorous_snyder
+
+What is the image used to run the nginx-1 container?
+nginx:alpine
+
+what is the name of the ubuntu container?
+awesome_northcut
+
+What is the ID of the container that uses the alpine image and is not running?
+de2717451a67
+
+What is the state of the stopped alpine container?
+EXITED
+
+Delete all containers from the Docker Host.
+Both Running and Not Running ones. Remember you may have to stop containers before deleting them.
+~ ➜  docker ps                 
+CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS         PORTS     NAMES
+b5098c6e9025   alpine         "sleep 1000"             6 minutes ago   Up 6 minutes             happy_jemison
+960fa53e2159   nginx:alpine   "/docker-entrypoint.…"   6 minutes ago   Up 6 minutes   80/tcp    nginx-2
+f7cf50a53795   nginx:alpine   "/docker-entrypoint.…"   6 minutes ago   Up 6 minutes   80/tcp    nginx-1
+52260ac6db2f   ubuntu         "sleep 1000"             6 minutes ago   Up 6 minutes             awesome_northcut
+
+~ ➜  docker images
+REPOSITORY                      TAG       IMAGE ID       CREATED       SIZE
+mysql                           latest    f6b0ca07d79d   9 days ago    934MB
+postgres                        latest    a38f9f77ff88   2 weeks ago   456MB
+alpine                          latest    706db57fb206   3 weeks ago   8.32MB
+nginx                           latest    657fdcd1c365   3 weeks ago   152MB
+nginx                           alpine    5e7abcdd2021   3 weeks ago   52.7MB
+redis                           latest    466e5b1da2ef   3 weeks ago   137MB
+ubuntu                          latest    97bed23a3497   4 weeks ago   78.1MB
+kodekloud/simple-webapp-mysql   latest    129dd9f67367   7 years ago   96.6MB
+kodekloud/simple-webapp         latest    c6e3cd9aae36   7 years ago   84.8MB
+
+~ ➜  docker ps -a       
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS                      PORTS     NAMES
+de2717451a67   alpine         "/bin/sh"                7 minutes ago    Exited (0) 7 minutes ago              hardcore_keller
+b5098c6e9025   alpine         "sleep 1000"             7 minutes ago    Up 7 minutes                          happy_jemison
+960fa53e2159   nginx:alpine   "/docker-entrypoint.…"   7 minutes ago    Up 7 minutes                80/tcp    nginx-2
+f7cf50a53795   nginx:alpine   "/docker-entrypoint.…"   7 minutes ago    Up 7 minutes                80/tcp    nginx-1
+52260ac6db2f   ubuntu         "sleep 1000"             7 minutes ago    Up 7 minutes                          awesome_northcut
+83ac7e9c13ae   redis          "docker-entrypoint.s…"   9 minutes ago    Exited (0) 7 minutes ago              serene_chaum
+fc5604d3e670   redis          "docker-entrypoint.s…"   11 minutes ago   Exited (1) 11 minutes ago             vigorous_snyder
+
+~ ➜  docker rm de2717451a67
+de2717451a67
+
+~ ➜  docker rm 83ac7e9c13ae            
+83ac7e9c13ae
+
+~ ➜  docker rm fc5604d3e670            
+fc5604d3e670
+
+~ ➜  docker ps -a          
+CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS         PORTS     NAMES
+b5098c6e9025   alpine         "sleep 1000"             7 minutes ago   Up 7 minutes             happy_jemison
+960fa53e2159   nginx:alpine   "/docker-entrypoint.…"   7 minutes ago   Up 7 minutes   80/tcp    nginx-2
+f7cf50a53795   nginx:alpine   "/docker-entrypoint.…"   7 minutes ago   Up 7 minutes   80/tcp    nginx-1
+52260ac6db2f   ubuntu         "sleep 1000"             7 minutes ago   Up 7 minutes             awesome_northcut
+
+~ ➜  docker stop             
+"docker stop" requires at least 1 argument.
+See 'docker stop --help'.
+
+Usage:  docker stop [OPTIONS] CONTAINER [CONTAINER...]
+
+Stop one or more running containers
+
+~ ✖ docker stop b5098c6e9025
+
+b5098c6e9025
+
+~ ➜  
+
+~ ➜  docker stop 960fa53e2159            
+960fa53e2159
+
+~ ➜  docker stop f7cf50a53795            
+f7cf50a53795
+
+~ ➜  docker stop 52260ac6db2f            
+52260ac6db2f
+
+~ ➜  docker ps -a            
+CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS                        PORTS     NAMES
+b5098c6e9025   alpine         "sleep 1000"             8 minutes ago   Exited (137) 38 seconds ago             happy_jemison
+960fa53e2159   nginx:alpine   "/docker-entrypoint.…"   8 minutes ago   Exited (0) 33 seconds ago               nginx-2
+f7cf50a53795   nginx:alpine   "/docker-entrypoint.…"   8 minutes ago   Exited (0) 22 seconds ago               nginx-1
+52260ac6db2f   ubuntu         "sleep 1000"             9 minutes ago   Exited (137) 3 seconds ago              awesome_northcut
+
+~ ➜  docker rm -a          
+unknown shorthand flag: 'a' in -a
+See 'docker rm --help'.
+
+~ ✖ docker rm b5098c6e9025  
+b5098c6e9025
+
+~ ➜  docker rm 960fa53e2159            
+960fa53e2159
+
+~ ➜  docker rm f7cf50a53795            
+f7cf50a53795
+
+~ ➜  docker rm 52260ac6db2f            
+52260ac6db2f
+
+~ ➜  docker ps -a          
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+Delete the ubuntu Image.
+~ ➜  docker images         
+REPOSITORY                      TAG       IMAGE ID       CREATED       SIZE
+mysql                           latest    f6b0ca07d79d   9 days ago    934MB
+postgres                        latest    a38f9f77ff88   2 weeks ago   456MB
+alpine                          latest    706db57fb206   3 weeks ago   8.32MB
+nginx                           alpine    5e7abcdd2021   3 weeks ago   52.7MB
+nginx                           latest    657fdcd1c365   3 weeks ago   152MB
+redis                           latest    466e5b1da2ef   3 weeks ago   137MB
+ubuntu                          latest    97bed23a3497   4 weeks ago   78.1MB
+kodekloud/simple-webapp-mysql   latest    129dd9f67367   7 years ago   96.6MB
+kodekloud/simple-webapp         latest    c6e3cd9aae36   7 years ago   84.8MB
+
+~ ➜  docker rmi 97bed23a3497
+Untagged: ubuntu:latest
+Untagged: ubuntu@sha256:66460d557b25769b102175144d538d88219c077c678a49af4afca6fbfc1b5252
+Deleted: sha256:97bed23a34971024aa8d254abbe67b7168772340d1f494034773bc464e8dd5b6
+Deleted: sha256:073ec47a8c22dcaa4d6e5758799ccefe2f9bde943685830b1bf6fd2395f5eabc
+
+~ ➜  docker images          
+REPOSITORY                      TAG       IMAGE ID       CREATED       SIZE
+mysql                           latest    f6b0ca07d79d   9 days ago    934MB
+postgres                        latest    a38f9f77ff88   2 weeks ago   456MB
+alpine                          latest    706db57fb206   3 weeks ago   8.32MB
+nginx                           latest    657fdcd1c365   3 weeks ago   152MB
+nginx                           alpine    5e7abcdd2021   3 weeks ago   52.7MB
+redis                           latest    466e5b1da2ef   3 weeks ago   137MB
+kodekloud/simple-webapp-mysql   latest    129dd9f67367   7 years ago   96.6MB
+kodekloud/simple-webapp         latest    c6e3cd9aae36   7 years ago   84.8MB
+
+You are required to pull a docker image which will be used to run a container later. Pull the image nginx:1.14-alpine
+Only pull the image, do not create a container.
+~ ➜  docker pull nginx:1.14-alpine
+1.14-alpine: Pulling from library/nginx
+bdf0201b3a05: Pull complete 
+3d0a573c81ed: Pull complete 
+8129faeb2eb6: Pull complete 
+3dc99f571daf: Pull complete 
+Digest: sha256:485b610fefec7ff6c463ced9623314a04ed67e3945b9c08d7e53a47f6d108dc7
+Status: Downloaded newer image for nginx:1.14-alpine
+docker.io/library/nginx:1.14-alpine
+
+Run a container with the nginx:1.14-alpine image and name it webapp
+(Showing right vs wrong)
+~ ➜  docker run -d nginx:1.14-alpine webapp
+40063c71f62ccfbe26829d608f7983a8f659aa7f9ac640b86f9a5bb88b45ef96
+docker: Error response from daemon: failed to create task for container: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec: "webapp": executable file not found in $PATH: unknown.
+
+~ ✖ docker run -d nginx:1.14-alpine --name webapp
+e7b621d8e41ca369cede9f5217b440aea80ebaa635859ac42dc77ab74530ed30
+docker: Error response from daemon: failed to create task for container: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec: "--name": executable file not found in $PATH: unknown.
+
+~ ✖ docker run -d --name webapp nginx:1.14-alpine
+28e2937b13a7ac472321d9693d8ca6423946938c8da8d04b88226cdd3bb932f9
+
+Cleanup: Delete all images on the host
+Remove containers as necessary
+~ ➜  docker images                                
+REPOSITORY                      TAG           IMAGE ID       CREATED       SIZE
+mysql                           latest        f6b0ca07d79d   9 days ago    934MB
+postgres                        latest        a38f9f77ff88   2 weeks ago   456MB
+alpine                          latest        706db57fb206   3 weeks ago   8.32MB
+nginx                           alpine        5e7abcdd2021   3 weeks ago   52.7MB
+nginx                           latest        657fdcd1c365   3 weeks ago   152MB
+redis                           latest        466e5b1da2ef   3 weeks ago   137MB
+nginx                           1.14-alpine   8a2fb25a19f5   6 years ago   16MB
+kodekloud/simple-webapp-mysql   latest        129dd9f67367   7 years ago   96.6MB
+kodekloud/simple-webapp         latest        c6e3cd9aae36   7 years ago   84.8MB
+
+~ ➜  docker ps    
+CONTAINER ID   IMAGE               COMMAND                  CREATED              STATUS              PORTS     NAMES
+28e2937b13a7   nginx:1.14-alpine   "nginx -g 'daemon of…"   About a minute ago   Up About a minute   80/tcp    webapp
+
+~ ➜  docker stop 28e2937b13a7            
+28e2937b13a7
+
+~ ➜  docker ps               
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+~ ➜  docker ps -a
+CONTAINER ID   IMAGE               COMMAND                  CREATED              STATUS                     PORTS     NAMES
+28e2937b13a7   nginx:1.14-alpine   "nginx -g 'daemon of…"   About a minute ago   Exited (0) 6 seconds ago             webapp
+e7b621d8e41c   nginx:1.14-alpine   "--name webapp"          2 minutes ago        Created                    80/tcp    priceless_saha
+40063c71f62c   nginx:1.14-alpine   "webapp"                 2 minutes ago        Created                    80/tcp    bold_gates
+
+~ ➜  ~ ✖ docker stop $(docker ps -aq) 
+28e2937b13a7
+e7b621d8e41c
+40063c71f62c
+
+~ ➜  docker ps -a                
+CONTAINER ID   IMAGE               COMMAND                  CREATED         STATUS                          PORTS     NAMES
+28e2937b13a7   nginx:1.14-alpine   "nginx -g 'daemon of…"   3 minutes ago   Exited (0) About a minute ago             webapp
+e7b621d8e41c   nginx:1.14-alpine   "--name webapp"          3 minutes ago   Created                         80/tcp    priceless_saha
+40063c71f62c   nginx:1.14-alpine   "webapp"                 4 minutes ago   Created                         80/tcp    bold_gates
+
+~ ➜  docker images
+REPOSITORY                      TAG           IMAGE ID       CREATED       SIZE
+mysql                           latest        f6b0ca07d79d   9 days ago    934MB
+postgres                        latest        a38f9f77ff88   2 weeks ago   456MB
+alpine                          latest        706db57fb206   3 weeks ago   8.32MB
+nginx                           alpine        5e7abcdd2021   3 weeks ago   52.7MB
+nginx                           latest        657fdcd1c365   3 weeks ago   152MB
+redis                           latest        466e5b1da2ef   3 weeks ago   137MB
+nginx                           1.14-alpine   8a2fb25a19f5   6 years ago   16MB
+kodekloud/simple-webapp-mysql   latest        129dd9f67367   7 years ago   96.6MB
+kodekloud/simple-webapp         latest        c6e3cd9aae36   7 years ago   84.8MB
+
+~ ➜      docker rm $(docker ps -aq)
+28e2937b13a7
+e7b621d8e41c
+40063c71f62c
+
+~ ➜      docker rmi $(docker images -aq)
+Untagged: mysql:latest
+Untagged: mysql@sha256:569c4128dfa625ac2ac62cdd8af588a3a6a60a049d1a8d8f0fac95880ecdbbe5
+Deleted: sha256:f6b0ca07d79d7d19c8da64558c3ccdd4ea635ac2193f551a1cb5370f33b494e8
+Deleted: sha256:27ef7ea60fab35085352ae2948a44aed0d0e5ed5314d03c2197bc7d2f39f7acc
+Deleted: sha256:f79c2a7c92eca3a6e4fb1dca0426bd84beee0bc1f76722ff2e2fa52fb7e7f2fe
+Deleted: sha256:ce50c8b7f223646b11db7b5e285508119b3355f4a5bf4aa0b6fe80dfd2a70a18
+Deleted: sha256:22de294ed386879e3631fee57c742bb70718fb0ed409ea49c631613149ab1740
+Deleted: sha256:5deeb2aacf62aab4a50422ec7ab05f9add5a379db01634488d5da816fa969159
+Deleted: sha256:7ddfed6a95ddd183145423499b92640acc19e40e059a7da6f554f533c1688cef
+Deleted: sha256:75a4644825b21613aa9ee371fccf60788d1c2b7ffa5e26259f7c562a81905bdf
+Deleted: sha256:7f7c3c7c0e2954674ff7437f3deff246727e7b49ec55d2d236a37f2f441c313b
+Deleted: sha256:a14875b5624cb4d89c24a4bd2321a279f6d3132c85dac606382c73a8f4e66f7a
+Deleted: sha256:827b99c091a57f0fc1ad0a026084fa9335638ba911267b9764a05b991077a0da
+Untagged: postgres:latest
+Untagged: postgres@sha256:7499fa0ed6b106d3b513fe792d673f1b496a539a541674fdcd9539c13c6427f3
+Deleted: sha256:a38f9f77ff88a69055ab9f6335aaf4e3dc03b0e7c13fcbaa8ee8c87a05ac6ab9
+Deleted: sha256:d90b7bbc9514167672842f3ec83be44a60a06df6f80cd90def0a72784e3713ab
+Deleted: sha256:cd273e26e7c994a8fd2839296d696071417d36da33e1814c6b54df76d3fe2e3f
+Deleted: sha256:d6c6398f6390e08d15b959b2c71686dc01b6b17902f945f758518d75b099512b
+Deleted: sha256:3d2afc91ecfc401aeca5e79f673b2c90c75373081c7f6481167085942a3d0baa
+Deleted: sha256:7d21e5be74ac23b317dfedff0ec0a543413a4e968f78345c2da7e15657c2192e
+Deleted: sha256:b32763703dcab0c133f68e1895d5e9bed4deb24a151429ea66651e644b20f5fd
+Deleted: sha256:0a17fc45a6a771a9a1573c3f96a007701e50d6268e020ce381d31f9c46a7e4cf
+Deleted: sha256:1a7b509ba899edf9d8c5c7f7b78be5cf37af2a9c195307def9bba9139ee2040f
+Deleted: sha256:2d21a325a6844751a12b204ae166890f2d64b3909832358b0b008fd54e751468
+Deleted: sha256:dc2b3a94f9f29b87c4bee8cb1a5b4aab2fd514c8f965c00135a003833b0d075d
+Deleted: sha256:d269c94b0f35e68359d874233034c0fa229976573d9943873996e2ee3a3ed058
+Deleted: sha256:979e7480d169e262551c88ac6fca8663481ce121bfd30187061e356d34a350a2
+Untagged: alpine:latest
+Untagged: alpine@sha256:4b7ce07002c69e8f3d704a9c5d6fd3053be500b7f1c69fc0d80990c2ad8dd412
+Deleted: sha256:706db57fb2063f39f69632c5b5c9c439633fda35110e65587c5d85553fd1cc38
+Untagged: nginx:alpine
+Untagged: nginx@sha256:61e01287e546aac28a3f56839c136b31f590273f3b41187a36f46f6a03bbfe22
+Deleted: sha256:5e7abcdd20216bbeedf1369529564ffd60f830ed3540c477938ca580b645dff5
+Deleted: sha256:6d3ae59953d08be74b44bad50ce0c5c15425f92c3f7b29a98b887e3c600e18ab
+Deleted: sha256:4afd112e56c8a32a6ee0e7b7e4fcab7269f2a002c1bef9c166da68bda172e1d2
+Deleted: sha256:57e2d4a5e41588b4484cecc824e5eb0f742065d8a430ede7ef5a3f66a046e179
+Deleted: sha256:3d62358da0fe179ecd251483c69bdca9e78afad4050d53564f4e57271b5defc6
+Deleted: sha256:c5860184f232a26f25e683d1ecc69d99122a703a955acfbb7828cb671f3d48a3
+Deleted: sha256:ce2ece23f889e74c25fa39d662e2f86e79acd2254a1ee5c1c4b2edb98c15f37f
+Deleted: sha256:eb589503a90fc5465ebd7edaf146b2a74b58a5b5e768a779cf713aea0a64a438
+Deleted: sha256:256f393e029fa2063d8c93720da36a74a032bed3355a2bc3e313ad12f8bde9d1
+Untagged: nginx:latest
+Untagged: nginx@sha256:029d4461bd98f124e531380505ceea2072418fdf28752aa73b7b273ba3048903
+Deleted: sha256:657fdcd1c3659cf57cfaa13f40842e0a26b49ec9654d48fdefee9fc8259b4aab
+Deleted: sha256:80a172d7673c2438064e08c7891798ae736b9f65b24b33ee849aa519d660d0be
+Deleted: sha256:d0437576e6e1ca87b75c0fc237b8afc322ddfb3ae0327a177503571a2f4bb20c
+Deleted: sha256:eb5bda0607e6f7ae16c240a351645078a0249891a3a44d0d6a9ac41d55e2b446
+Deleted: sha256:4ab1e8afb5f1c3249d9d243e1b4cd6abcedd20cd16693893852e97c1fc3a97f4
+Deleted: sha256:0b7735a9234f3aff06db222061ecc411841f3b82ad205d3166618ea9fbf0ae80
+Deleted: sha256:5ba3270e2400d2ade941f6ffe0e69696b3b47261239347f2fea5b74a39508a07
+Deleted: sha256:d7c97cb6f1fe7cae982649e9f55efe201212e8acaa64bd668c083b204e4efd4c
+Untagged: redis:latest
+Untagged: redis@sha256:4521b581dbddea6e7d81f8fe95ede93f5648aaa66a9dacd581611bf6fe7527bd
+Deleted: sha256:466e5b1da2ef27f8c769875a8b17a50edcb0731ac9207b47b0e22306d95362bd
+Deleted: sha256:6afb9e43ca645096bbe408d5737abf81900004658550e30c53db4beca72d3e4c
+Deleted: sha256:38486375e86902abfc20524db94d85d9224a473d5604676086fab83a954ad798
+Deleted: sha256:057d5dfe678813ced602b9772455954b1c4fa09e2032cde8858a28c8e61f3c0c
+Deleted: sha256:7710a32c90a168f4a44f96ff138ae80156f76639c1d6e1752d2027d43e05ab51
+Deleted: sha256:4f2684733a956a0be564c838f81215f0f6e0ece7347ef9971cd6c2dd5e616009
+Deleted: sha256:8e7fdf751118ecc9b97993991dadd3b8ffc5f98ecb1dbdce2e47dcd579e238d1
+Deleted: sha256:d6d0586ce8024205fd00d811876170571638957b5095d7e9dd1d015345c8d069
+Untagged: nginx:1.14-alpine
+Untagged: nginx@sha256:485b610fefec7ff6c463ced9623314a04ed67e3945b9c08d7e53a47f6d108dc7
+Deleted: sha256:8a2fb25a19f5dc1528b7a3fabe8b3145ff57fe10e4f1edac6c718a3cf4aa4b73
+Deleted: sha256:f68a8bcb9dbd06e0d2750eabf63c45f51734a72831ed650d2349775865d5fc20
+Deleted: sha256:cbf2c7789332fe231e8defa490527a7b2c3ae8589997ceee00895f3263f0a8cf
+Deleted: sha256:894f3fad7e6ecd7f24e88340a44b7b73663a85c0eb7740e7ade169e9d8491a4c
+Deleted: sha256:a464c54f93a9e88fc1d33df1e0e39cca427d60145a360962e8f19a1dbf900da9
+Untagged: kodekloud/simple-webapp-mysql:latest
+Untagged: kodekloud/simple-webapp-mysql@sha256:92943d2b3ea4a1db7c8a9529cd5786ae3b9999e0246ab665c29922e9800d1b41
+Deleted: sha256:129dd9f673673e9e8507ac837dcd9eaa3906469c10ef4aa63d0cac1f1dfa6b3a
+Deleted: sha256:07711c2005c750fa9c42f5667ec657d7f5126f710915cf917cf5c0e9e3871242
+Deleted: sha256:69dbe0a61b055e5e63706bc76a875220e02769e880d1846c6f965c2f4b1b1dfe
+Deleted: sha256:5978a6831cce81b23e657b11150010eb8acf463a183cbe540eb6c769314a0f8a
+Deleted: sha256:93099f51e789a3d87e77501591ab260ca2ff9b8532a78f9fc6bebaa2d5ffcad4
+Deleted: sha256:15df614f20bc13c6da75c43616dec28d17908970491a562820fabbc11a1e562c
+Deleted: sha256:a8dc474c5cce41198ea9a334a54bd7d59043f86c32c3b8e3f0d76a52adf09cf2
+Deleted: sha256:362e5432c5954e9f081657f369b00d821cecd10274b8885f1d6fd1b2e8c1a405
+Deleted: sha256:73046094a9b835e443af1a9d736fcfc11a994107500e474d0abf399499ed280c
+Untagged: kodekloud/simple-webapp:latest
+Untagged: kodekloud/simple-webapp@sha256:e5355b4c7804f453d79de75d6659ee702eeebbe30c02d9f1ce6602a96b576e57
+Deleted: sha256:c6e3cd9aae3645a98dd69c15b048614603efce6cda26c60f5f7e867ef68f729f
+Deleted: sha256:33833b97952fc68d999bc3bccaad23687ea6a939724e0130c151dc973ba8f2d3
+Deleted: sha256:a3dd002bb33a1cdb83aface983ea0d268be1b4ffda0e42ce72aa5c22ced6701f
+Deleted: sha256:12e8c893d121075ced84d32b967f6de75ff67e1cf7c9b66b63636bdf630ac12c
+Deleted: sha256:4785d1dd03a24d6b30c9342db24ac2254d01362e7f3b3f28f55a00e4858f85e5
+Deleted: sha256:9de207c08e3d729c3b9c451d87e109144cdc6e2e71f4fcad80c9cbf99879d8bb
+Deleted: sha256:0a2679c979afc5eb30764613ae1fa22199b872610f709f556b9f35bc0717e3f1
+Deleted: sha256:df64d3292fd6194b7865d7326af5255db6d81e9df29f48adde61a918fbd8c332
+
+~ ➜  docker images 
+REPOSITORY   TAG       IMAGE ID   CREATED   SIZE
+
+~ ➜  docker ps -a 
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+~ ➜  
+
+
