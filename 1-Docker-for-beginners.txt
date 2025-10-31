@@ -31,10 +31,14 @@ CONTAINER ID   IMAGE                          COMMAND                  CREATED  
 969adef23785   kodekloud/simple-webapp:blue   "python app.py --nam…"   4 minutes ago    Up 4 minutes                                                                                         dreamy_visvesvaraya
 918d2a5942c9   nginx:alpine                   "/docker-entrypoint.…"   16 minutes ago   Up 16 minutes   0.0.0.0:3456->3456/tcp, :::3456->3456/tcp, 0.0.0.0:38080->80/tcp, :::38080->80/tcp   charming_hugle
 
-~ ✖ docker run -p 38282:8080 kodekloud/simple-webapp:blue            
+~ ➜  docker run -p 38282:8080 --name blue-app kodekloud/simple-webapp:blue
+
  * Serving Flask app "app" (lazy loading)
  * Environment: production
    WARNING: Do not use the development server in a production environment.
    Use a production WSGI server instead.
  * Debug mode: off
  * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+172.12.0.1 - - [31/Oct/2025 17:59:18] "GET / HTTP/1.1" 200 -
+
+
