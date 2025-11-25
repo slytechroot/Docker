@@ -1,11 +1,3 @@
 # Docker
 Docker related content
 
-Docker
-https://gitlab.com/nanuchi/developing-with-docker
-https://learn.kodekloud.com/user/courses/labs-docker-for-the-absolute-beginner
-https://learn.kodekloud.com/user/learning-paths/docker
-https://learn.kodekloud.com/user/courses/crash-course-docker-for-absolute-beginner
-https://learn.kodekloud.com/user/courses/docker-training-course-for-the-absolute-beginner/module/cadd438c-e11b-445c-b802-029caf6d9b89/lesson/c94c0650-a1d8-447a-a52e-92a47f038b3f
-https://learn.kodekloud.com/user/courses/docker-training-course-for-the-absolute-beginner?refererPath=%2Fuser%2Flearning-paths%2Fdevops-engineer&refererTitle=DevOps+Engineer
-https://learn.kodekloud.com/user/courses/docker-training-course-for-the-absolute-beginner
