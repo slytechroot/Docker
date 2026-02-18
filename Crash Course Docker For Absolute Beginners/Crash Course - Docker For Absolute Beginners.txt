@@ -1,0 +1,393 @@
+Crash Course: Docker For Absolute Beginners
+https://learn.kodekloud.com/user/courses/crash-course-docker-for-absolute-beginner
+
+Kickstart your containerization journey with a practical Docker tutorial designed for absolute beginners. This hands-on crash course focuses on the essential Docker CLI commands you’ll use every day. No prior Docker or DevOps experience required—just basic command-line familiarity. Through clear explanations and guided exercises, you’ll quickly learn how to work confidently with containers and images using real-world workflows.
+
+What you’ll learn:
+
+    Core concepts: What containers are, how they differ from virtual machines, and why Docker matters in modern development and DevOps.
+
+    docker run: Launch your first containers, understand image auto-pull behavior, and name containers for easier management.
+
+    docker ps: List running and stopped containers (including docker ps -a) and read essential container status details.
+
+    docker stop: Safely stop containers to avoid data corruption and ensure graceful shutdowns.
+
+    docker rm and docker rmi: Clean up your environment by removing containers and images to reclaim space and stay organized.
+
+    docker pull: Download official images from Docker Hub and work with image tags (e.g., latest vs specific versions).
+
+    docker exec: Open an interactive shell in a running container for troubleshooting and basic administration.
+
+    Practice: Reinforce each concept with beginner-focused exercises that mirror real workflows.
+
+Who this course is for:
+
+    Developers, QA engineers, data scientists, and IT/DevOps newcomers who want a fast, practical introduction to Docker.
+
+    Anyone seeking a simple, step-by-step Docker tutorial without prior container experienc
+
+By the end: You’ll confidently use the fundamental Docker commands—run, ps, stop, rm, rmi, pull, exec—to launch, inspect, manage, and troubleshoot containers on Windows, macOS, or Linux using Docker Desktop or Docker Engine.
+
+
+Containers - are isolated environments, with their own processes or services, their own network interfaces, their own mounds, just like virtual machines.
+
+Docker utilizes LXC containers.
+
+
+#start a container
+docker run ansible
+docker run redis
+docker run nodejs
+docker run nginx
+
+##################
+
+Sometimes things aren’t clear right away. That’s where you need to be patient and persevere and see where things lead.
+– Mary Pierce
+
+Labs:
+1)
+To get the info on Docker CLI, run the command docker --help. Observe the options listed.
+
+2)
+Which Docker command is used to create and start containers from a specified image? 
+docker run <image_name>
+
+3)
+If an image is not available locally, Docker will pull it from Docker Hub.
+Yes, if an image is not available locally, Docker will pull it from Docker Hub. So, the answer is True.
+
+TRUE!
+
+4)
+Spin up a Docker container using the Ubuntu image.
+Note: Use the docker run command for this task.
+Is the container spun up using the Ubuntu image?
+
+Please execute the following command to spin up a container from image:
+docker run ubuntu
+
+5)
+You executed the following Docker command in the previous question:
+
+docker run ubuntu
+
+Arrange the following events in the correct order of execution based on the output:
+
+A. Docker checks if the ubuntu:latest image is available locally.
+
+B. Docker pulls the ubuntu:latest image from Docker Hub.
+
+C. A container is created from the ubuntu image.
+
+D. The container runs with the default command specified in the image.
+
+E. Docker displays a message about the image being downloaded.
+
+Solution:
+The correct order of execution is A,B,C,D,E
+
+
+6)
+The container that was started in the previous task is currently in an exited state. This occurs because a process needs to be run within the container to keep it alive.
+
+You can verify the status of the container using the following command:
+
+~ ➜  docker ps -a     
+CONTAINER ID   IMAGE     COMMAND       CREATED          STATUS                      PORTS     NAMES
+d438e50c0cb4   ubuntu    "/bin/bash"   16 seconds ago   Exited (0) 15 seconds ago             zealous_gould
+
+
+
+#######
+
+Commands -- docker ps, stop <---------------------------
+
+#to see all containers
+docker ps
+
+#to see all containers running or not
+docker ps -a
+
+#to stop running container
+docker stop silly_sammet
+
+######## Lab ############
+One big reason for a winning attitude is that you will take the necessary steps and not quit when the going gets difficult.
+– Don M.Green
+
+1)
+How many containers are RUNNING on this host now?
+
+Solution:
+Run the command docker ps and count the number of containers that are running.
+
+docker ps
+
+2)
+How many containers are RUNNING on this host now?
+We just created a few.
+
+4
+
+Run the command docker ps and count the number of containers that are running.
+
+3)
+How many containers are PRESENT on the host now?
+Include both Running and Not Running ones.
+
+Hint:
+Run the command docker ps -a
+
+docker ps -a
+
+5
+
+4)
+What image is used to run the nginx-1 container? 
+
+Hint:
+Run the docker ps command and check under the IMAGE column.
+
+nginx:alpine
+
+5)
+What is the name of the container created using the ubuntu image?
+
+Hint:
+Run the docker ps command and look at the NAMES column.
+
+awesome_northcut
+
+6)
+What is the ID of the container that uses the alpine image and is not running?
+
+Hint:
+Run the docker ps -a command and identify the ID of the container that uses alpine image.
+
+411e77855b4b
+
+
+7)
+What is the state of the stopped alpine container?
+
+Exited
+
+8)
+Stop the container that has Ubuntu as the base image.
+
+Solution:
+Identify the Container ID and delete it using the below command.
+
+docker stop <CONTAINER ID>
+
+docker stop 9292d5cba9f9
+
+#######################
+
+Commands -- docker rm, rmi <---------------------------
+
+#remove container
+docker rm silly_sammet
+
+#list images
+docker images
+
+#delete nginx image
+docker rmi nginx
+
+!Delete all dependent containers to remove the image.
+
+Lab!!!!!!!!!!!!!!!!
+Keep your face always toward the sunshine, and shadows will fall behind you.
+
+1)
+How many images are available on this host?
+
+Hint:
+Run the command docker images and count the number of available images.
+
+9
+
+2)
+Run a container using the redis image.
+
+Hint:
+Run the command docker run redis.
+
+DONE!!!
+
+
+3)
+Stop the container you just created.
+
+Hint:
+Press CTRL+C if you are on the container's terminal. Else, run docker stop <container-id>. 
+
+
+4)
+How many containers are PRESENT on this host now?
+Include both Running and Not Running ones.
+
+Hint:
+Run the command docker ps and count the number of containers that are running.
+
+6
+
+5)
+Delete all containers from the Docker Host, both Running and Not Running ones.
+Note: Remember you may have to stop containers before deleting them.
+
+Hint:
+To stop containers run the command docker stop <container id | container name>
+And then to delete them run docker rm <container id | container name>
+
+Solution:
+To stop all the containers, run at once, run the command: docker stop $(docker ps -aq)
+To remove all the stopped containers at once, run the command: docker rm $(docker ps -aq)
+
+~ ✖ docker stop $(docker ps -aq)
+be7dbc9f84e7
+7ae2f4551405
+64f28b5d81f2
+2dc7ff48c74a
+
+~ ➜  docker rm $(docker ps -aq)  
+be7dbc9f84e7
+7ae2f4551405
+64f28b5d81f2
+2dc7ff48c74a
+
+
+6)
+Delete the ubuntu image.
+
+Hint:
+Run the command docker rmi ubuntu
+
+
+~ ➜  docker images
+REPOSITORY                      TAG       IMAGE ID       CREATED        SIZE
+mysql                           latest    f6b0ca07d79d   2 months ago   934MB
+postgres                        latest    a38f9f77ff88   2 months ago   456MB
+alpine                          latest    706db57fb206   2 months ago   8.32MB
+nginx                           alpine    5e7abcdd2021   2 months ago   52.7MB
+nginx                           latest    657fdcd1c365   2 months ago   152MB
+redis                           latest    466e5b1da2ef   2 months ago   137MB
+ubuntu                          latest    97bed23a3497   3 months ago   78.1MB
+kodekloud/simple-webapp-mysql   latest    129dd9f67367   7 years ago    96.6MB
+kodekloud/simple-webapp         latest    c6e3cd9aae36   7 years ago    84.8MB
+
+~ ➜  docker rmi 97bed23a3497                          
+Untagged: ubuntu:latest
+Untagged: ubuntu@sha256:66460d557b25769b102175144d538d88219c077c678a49af4afca6fbfc1b5252
+Deleted: sha256:97bed23a34971024aa8d254abbe67b7168772340d1f494034773bc464e8dd5b6
+Deleted: sha256:073ec47a8c22dcaa4d6e5758799ccefe2f9bde943685830b1bf6fd2395f5eabc
+
+7)
+Cleanup: Delete all images on the host.
+Remove containers as necessary.
+
+Hint:
+Run the command docker rmi <IMAGE:TAG>
+
+Solution:
+Stop and delete all the containers being used by images.
+Then run the command to delete all the available images: docker rmi $(docker images -aq)
+
+DONE!!!!!!
+
+####################################
+
+Commands -- docker pull, exec <------------------------
+
+#pull download an image
+docker run nginx
+
+#ONLY to pull the image 
+docker pull nginx
+
+A docker container is only meant to run a task, not a full OS.
+
+Once the task is complete, the task exits!
+A docker container only exists for as long as the process in it is alive!!!!
+
+docker run ubuntu sleep 5
+
+
+docker ps -a
+
+#see a file in the container.
+docker exec distracted_mcclintock cat /etc/hosts
+
+- this will print the contents of the /etc/hosts file.
+
+
+LAB!!!!!!!!!!!!!!!!!!!
+Regret for the time wasted can become a power of good in the time that remains.
+– Arthur Brisbane
+
+1)
+You are required to pull a Docker image, which will be used to run a container later. Pull the image nginx:1.14-alpine.
+Pull only the image; do not create a container.
+
+Solution:
+Run the command docker pull nginx:1.14-alpine
+
+The command docker pull nginx:1.14-alpine is used to download a specific version of the Nginx web server from the Docker Hub. In this case, it pulls the version 1.14 of Nginx that is based on the lightweight Alpine Linux distribution.
+
+DONE.
+
+2)
+Run a container in detached mode with the nginx:1.14-alpine image and name it webapp.
+
+Note: Use --name flag to name the container.
+
+Solution:
+Run the command docker run -d --name webapp nginx:1.14-alpine. Then, check the status of the container created using the docker ps command.
+
+The command docker run -d --name webapp nginx:1.14-alpine performs the following actions:
+
+    docker run: This is the command used to create and start a new container.
+    -d: This flag runs the container in detached mode, meaning it operates in the background and does not block the terminal.
+    --name webapp: This flag assigns the name "webapp" to the container for easier reference.
+    nginx:1.14-alpine: This specifies the image to use for the container, in this case, the Nginx web server version 1.14 based on the Alpine Linux distribution.
+
+After running the command, you can check the status of the container with the command docker ps, which lists all running containers, showing their status, names, and other details.
+
+
+~ ✖ docker run -d --name webapp nginx:1.14-alpine
+ae25914aff0410f5300655fcd22bfdfc2be445bac26e73d69d0aff176a50553c
+
+~ ➜  docker ps                                    
+CONTAINER ID   IMAGE               COMMAND                  CREATED         STATUS         PORTS     NAMES
+ae25914aff04   nginx:1.14-alpine   "nginx -g 'daemon of…"   7 seconds ago   Up 6 seconds   80/tcp    webapp
+
+
+3)
+A Docker container is running in the background, and you want to run a command or open a shell inside this running container without stopping or restarting it.
+Which Docker command should you use?
+
+Solution:
+The docker exec command lets you interact with a container that is already running.
+
+docker exec
+
+4)
+An Ubuntu-based container running on the terminal. Create a file learning.txt under the root folder with the text This is the file.
+
+Solution:
+In the terminal, identify the container ID with the Ubuntu base image.
+
+docker ps --filter ancestor=ubuntu --format '{{.ID}}'
+Create a file in the container using the below command.
+docker exec <container id> sh -c 'echo "This is the file" >> /root/learning.txt'
+
+
+~ ➜  docker ps --filter ancestor=ubuntu --format '{{.ID}}'
+13dca83bb269
+
+~ ➜  docker exec 13dca83bb269 sh -c 'echo "This is the file" >> /root/learning.txt'
+
+####################

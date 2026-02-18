@@ -1,0 +1,2702 @@
+Docker Training Course for the Absolute Beginner
+
+other commands:
+
+#download and setup the simple-webapp
+docker run kodekloud/simple-webapp
+
+#run detached and in the background
+docker run -d kodekloud/simple-webapp
+
+# attach to the container
+docker attach a043d
+
+#Make a container sleep for 20 seconds
+docker run centos sleep 20
+
+#access the container
+docker run -it centos bash
+
+#get the image OS from container
+docker exec 7d8sa7d8sa7ds8a cat /etc/*release*
+
+
+Labs <---------------------------------
+Change is the end result of all true learning.
+– Leo Buscaglia
+
+1)
+What is the version of Docker Server Engine running on the Host?
+
+Hint:
+Run the command docker version and look for the version of Server Engine.
+
+~ ➜  docker version
+Client:
+ Version:           25.0.5
+ API version:       1.44
+ Go version:        go1.20.11
+ Git commit:        d260a54c81efcc3f00fe67dee78c94b16c2f8692
+ Built:             Mon Apr 15 18:14:16 2024
+ OS/Arch:           linux/amd64
+ Context:           default
+
+Server:
+ Engine:
+  Version:          25.0.5
+  API version:      1.44 (minimum version 1.24)
+  Go version:       go1.20.11
+  Git commit:       e63daec8672d77ac0b2b5c262ef525c7cf17fd20
+  Built:            Mon Apr 15 18:14:16 2024
+  OS/Arch:          linux/amd64
+  Experimental:     false
+ containerd:
+  Version:          v1.7.2
+  GitCommit:        0cae528dd6cb557f7201036e9f43420650207b58
+ runc:
+  Version:          1.1.12
+  GitCommit:        51d5e94601ceffbbd85688df1c928ecccbfa4685
+ docker-init:
+  Version:          0.19.0
+  GitCommit:        
+
+
+
+2)
+How many containers are running on this host?
+Hint:
+Run the command docker ps and count the number of running containers.
+
+0
+
+3)
+How many images are available on this host?
+Hint:
+Run the command docker images and count the number of available images.
+
+9
+
+~ ➜  docker images
+REPOSITORY                      TAG       IMAGE ID       CREATED        SIZE
+mysql                           latest    f6b0ca07d79d   2 months ago   934MB
+postgres                        latest    a38f9f77ff88   2 months ago   456MB
+alpine                          latest    706db57fb206   2 months ago   8.32MB
+nginx                           alpine    5e7abcdd2021   2 months ago   52.7MB
+nginx                           latest    657fdcd1c365   2 months ago   152MB
+redis                           latest    466e5b1da2ef   3 months ago   137MB
+ubuntu                          latest    97bed23a3497   3 months ago   78.1MB
+kodekloud/simple-webapp-mysql   latest    129dd9f67367   7 years ago    96.6MB
+kodekloud/simple-webapp         latest    c6e3cd9aae36   7 years ago    84.8MB
+
+4)
+Run a container using the redis image
+
+NOTE: Run the container in detached mode if you don't want the container to take over your current terminal. This allows your terminal to remain free for other commands, or you can open a new terminal to run the command.
+
+Hint:
+Run the command docker run redis
+
+DONE.
+
+5)
+Stop the container you just created.
+
+Hint:
+Run docker ps to find all running containers.
+Hit CTRL+C if you are on the container's terminal. Or else run docker stop <container-id>.
+
+Done.
+
+
+7)
+How many containers are RUNNING on this host now?
+Hint:
+Run the command docker ps and count the number of containers that are running.
+
+0
+
+8)
+How many containers are RUNNING on this host now?
+We just created a few.
+
+4
+
+9)
+How many containers are PRESENT on the host now?
+Including both Running and Not Running ones
+
+Run the command docker ps -a
+
+6.
+
+10)
+What is the image used to run the nginx-1 container?
+
+Hint:
+Run the docker ps command and check under the IMAGE column.
+
+nginx:alpine
+
+
+11)
+What is the name of the container created using the ubuntu image?
+
+Hint:
+Run the docker ps command and look at the NAMES column.
+
+awesome_northcut
+
+12)
+What is the ID of the container that uses the alpine image and is not running?
+
+Hint:
+Run the docker ps -a command and identify the ID of the container that uses alpine image.
+
+2893ad0dafcd
+
+13)
+What is the state of the stopped alpine container?
+
+Hint:
+Run the command docker ps -a and look at the STATUS column.
+
+EXITED.
+
+14)
+Delete all containers from the Docker Host.
+Both Running and Not Running ones. Remember you may have to stop containers before deleting them.
+
+Hint:
+To stop containers run the command docker stop <container id | container name>
+And then to delete them run docker rm <container id | container name>
+
+Solution:
+To stop all the containers at once, run the command: docker stop $(docker ps -aq)
+
+To remove all the stopped containers at once, run the command: docker rm $(docker ps -aq).
+
+
+15)
+Delete the ubuntu Image.
+
+Hint:
+Run the command docker rmi ubuntu.
+
+~ ➜  docker rmi ubuntu         
+Untagged: ubuntu:latest
+Untagged: ubuntu@sha256:66460d557b25769b102175144d538d88219c077c678a49af4afca6fbfc1b5252
+Deleted: sha256:97bed23a34971024aa8d254abbe67b7168772340d1f494034773bc464e8dd5b6
+Deleted: sha256:073ec47a8c22dcaa4d6e5758799ccefe2f9bde943685830b1bf6fd2395f5eabc
+
+
+16)
+You are required to pull a docker image which will be used to run a container later. Pull the image nginx:1.14-alpine
+
+Only pull the image, do not create a container.
+
+Hint:
+Run the command docker pull nginx:1.14-alpine.
+
+~ ➜  docker pull nginx:1.14-alpine 
+1.14-alpine: Pulling from library/nginx
+bdf0201b3a05: Pull complete 
+3d0a573c81ed: Pull complete 
+8129faeb2eb6: Pull complete 
+3dc99f571daf: Pull complete 
+Digest: sha256:485b610fefec7ff6c463ced9623314a04ed67e3945b9c08d7e53a47f6d108dc7
+Status: Downloaded newer image for nginx:1.14-alpine
+docker.io/library/nginx:1.14-alpine
+
+
+17)
+Run a container with the nginx:1.14-alpine image and name it webapp.
+
+Hint:
+Run the command docker run -d --name webapp nginx:1.14-alpine and check the status of created container by docker ps command.
+
+~ ➜  docker run -d --name webapp nginx:1.14-alpine
+4df6d24b42910243f27d7e9dcde52eed3049f9adcbfd0c2fb85e1ad04e89b506
+
+~ ➜  docker ps                                    
+CONTAINER ID   IMAGE               COMMAND                  CREATED         STATUS         PORTS     NAMES
+4df6d24b4291   nginx:1.14-alpine   "nginx -g 'daemon of…"   4 seconds ago   Up 4 seconds   80/tcp    webapp
+
+
+18)
+Cleanup: Delete all images on the host
+Remove containers as necessary.
+
+Hint:
+Run the command docker rmi <IMAGE:TAG>
+
+Solution:
+Stop and delete all the containers being used by images.
+Then run the command to delete all the available images: docker rmi $(docker images -aq)
+
+~ ➜  docker ps -a            
+CONTAINER ID   IMAGE               COMMAND                  CREATED         STATUS                     PORTS     NAMES
+4df6d24b4291   nginx:1.14-alpine   "nginx -g 'daemon of…"   4 minutes ago   Exited (0) 2 minutes ago             webapp
+
+~ ➜  docker rm 4df6d24b4291                
+4df6d24b4291
+
+~ ➜  docker images         
+REPOSITORY   TAG           IMAGE ID       CREATED       SIZE
+nginx        1.14-alpine   8a2fb25a19f5   6 years ago   16MB
+
+~ ➜  docker rmi nginx                               
+Error response from daemon: No such image: nginx:latest
+
+~ ✖ docker rmi 8a2fb25a19f5     
+Untagged: nginx:1.14-alpine
+Untagged: nginx@sha256:485b610fefec7ff6c463ced9623314a04ed67e3945b9c08d7e53a47f6d108dc7
+Deleted: sha256:8a2fb25a19f5dc1528b7a3fabe8b3145ff57fe10e4f1edac6c718a3cf4aa4b73
+Deleted: sha256:f68a8bcb9dbd06e0d2750eabf63c45f51734a72831ed650d2349775865d5fc20
+Deleted: sha256:cbf2c7789332fe231e8defa490527a7b2c3ae8589997ceee00895f3263f0a8cf
+Deleted: sha256:894f3fad7e6ecd7f24e88340a44b7b73663a85c0eb7740e7ade169e9d8491a4c
+Deleted: sha256:a464c54f93a9e88fc1d33df1e0e39cca427d60145a360962e8f19a1dbf900da9
+
+###############################
+
+Docker Run <---------------
+
+#run a container service for redis
+docker run redis
+
+#run a container service version
+docker run redis:4.0
+
+#-i interact
+docker run -i kodekloud/simple-prompt-docker
+
+#-i interact and -t pseudo-terminal
+docker run -it kodekloud/simple-prompt-docker
+
+#docker ports
+docker run kodekloud/webapp
+
+#map the docker port to external port
+#port 80 opened to the world!!!!
+docker run -p 80:5000 kodekloud/webapp
+
+or 
+
+docker run -p 8000:5000 kodekloud/webapp
+
+or 
+
+docker run -p 8001:5000 kodekloud/webapp
+
+#run mysql
+docker run -p 3306:3306 mysql
+
+#Volume mapping !!!!!!!!!!!!!!!!!!!!
+
+#run mysql container
+docker run mysql
+
+#map the volume to an external folder path
+docker run -v /opt/datadir:/var/lib/mysql mysql
+
+#inspect container for details
+docker inspect blissfull_hopper
+
+#see container logs
+docker logs blissful_hopper
+
+
+
+#####################
+Article: Jenkins Image <--------------------------
+
+This is an update for the Jenkins image.
+
+In our upcoming demo video, I used a jenkins image which is now deprecated. Instead of that, we have to use jenkins/jenkins.
+
+In the demo video, I used the command:-
+
+docker run jenkins
+
+But as of now, we have to use the following command:-
+
+docker run jenkins/jenkins
+
+Reference:-
+
+#############################
+
+Demo - Advanced Docker Run Features <-------------------------------
+
+Tags are used when we want to specify a certain version to install with 'docker run'.
+
+#run -d detached what's being displayed in the container 'timer' that simply prints the timer (this runs infinitely).
+docker run -d timer
+
+#see output of what's being displayed in the container named 'timer' with the container-id
+docker attach <container-id>
+
+#make data persistent for Jenkins
+docker run -p 8080:8080 -v /root/my-jenkins-data:/var/jenkins_home -u root jenkins
+
+
+
+##################
+
+LABS !!!!!!!!!!!!!!!!!!
+There are times to stay put, and what you want will come to you, and there are times to go out into the world and find such a thing for yourself.
+– Lemony Snicket
+
+1)
+Let us first inspect the environment. How many containers are running on this host?
+
+Hint:
+Run the command docker ps and count the number of running containers.
+
+1
+
+2)
+What is the image used by the container?
+
+Hint:
+Run the command docker ps and look under the IMAGE column.
+
+nginx:alpine
+
+3)
+How many unique ports are published on this container (count each port only once even if it appears for IPv4 and IPv6)?
+
+Solution:
+Use docker ps and look at the PORTS column. Count each port pair (host:container) only once.
+
+2.
+
+
+4)
+Which of the following ports are mapped on the container side (i.e., exposed inside the container)?
+
+Solution:
+In the PORTS column of docker ps, the format is hostPort->containerPort. The value after -> is the container (internal) port.
+
+3456 & 80.
+
+
+5)
+Which of the below ports are published on Host?
+
+Hint:
+Run the command docker ps and look under the PORTS column. Ports on the left(before ->) are published on the host.
+
+38080 & 3456.
+
+6)
+Run an instance of kodekloud/simple-webapp:blue and name the container blue-app, mapping port 8080 on the container to port 38282 on the host
+
+Hint:
+Run the command: docker run -p 38282:8080 --name blue-app kodekloud/simple-webapp:blue
+You can run this container in the background after adding the -d flag.
+
+~ ➜  docker run -p 38282:8080 --name blue-app kodekloud/simple-webapp:blue
+ * Serving Flask app "app" (lazy loading)
+ * Environment: production
+   WARNING: Do not use the development server in a production environment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+172.12.0.1 - - [03/Jan/2026 08:13:21] "GET / HTTP/1.1" 200 -
+
+docker run -d -p 38282:8080 kodekloud/simple-webapp:blue -name blue-app
+f3b00f4f9b2d8db4cd6542a1184af763b914dc7f0c479f966ec08304c3adb238
+
+
+#############################
+
+Docker images <-------------------------------
+
+- how to create your own image, which application, how is it built?
+- easier for shipping and containment
+- start with an OS like Ubuntu, update apt repo, install dependencies using apt, install Python dependencies using pip, copy source code to /opt folder, run the web server using 'flask' command.
+
+!!!!!!!!!!!!!!!!!!
+Dockerfile:
+FROM Ubuntu
+
+RUN apt-get update
+RUN apt-get install python
+
+RUN pip install flask
+RUN pip install flask-mysql
+
+COPY . /opt/source-code
+
+ENTRYPOINT FLASK_APP=/opt/source-code/app.py flask run
+
+!!!!!!!!!!!!!!!!!!
+
+docker build Dockerfile -t slytechroot/my-custom-app
+
+#add to Docker registry
+docker push slytechroot/my-custom-app
+
+(FROM, RUN, COPY, ENTRYPOINT are instructions)
+- all Docker files start with a FROM command to choose the base OS or another image
+
+docker history slytechroot/my-custom-app
+
+#################
+
+What can you containerize? 
+
+Anything and everything!!!!
+
+##########################################
+
+Demo - Creating a new Docker Image <------------------------------------
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Simple Web Application
+
+This is a simple web application using Python Flask and MySQL database. This is used in the demonstration of the development of Ansible Playbooks.
+
+Below are the steps required to get this working on a base linux system.
+
+    Install all required dependencies
+    Install and Configure Web Server
+    Start Web Server
+
+1. Install all required dependencies
+
+Python and its dependencies
+
+apt-get install -y python3 python3-setuptools python3-dev build-essential python3-pip default-libmysqlclient-dev
+
+2. Install and Configure Web Server
+
+Install Python Flask dependency
+
+pip3 install flask
+pip3 install flask-mysql
+
+    Copy app.py or download it from a source repository
+    Configure database credentials and parameters
+
+3. Start Web Server
+
+Start web server
+
+FLASK_APP=app.py flask run --host=0.0.0.0
+
+4. Test
+
+Open a browser and go to URL
+
+http://<IP>:5000                            => Welcome
+http://<IP>:5000/how%20are%20you            => I am good, how about you?
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+So HOW DO WE DOCKERIZE IT now that we've confirmed the app is running correctly? <------------------------------------------------
+
+!!!!!!!!!!!!!!!!!!
+Dockerfile:
+FROM Ubuntu
+
+RUN apt-get update
+RUN apt-get install -y python python-pip
+RUN pip install flask
+RUN pip install flask-mysql
+
+COPY app.py /opt/app.py
+
+ENTRYPOINT FLASK_APP=/opt/app.py flask run --host=0.0.0.0
+
+!!!!!!!!!!!!!!!!!!
+
+#build the image
+docker build .
+
+(completed)
+
+#give it a name with the -t option for tags/tagged
+docker build . -t my-simple-webapp
+
+docker images
+(find your new image)
+
+docker run my-simple-webapp
+
+docker push my-simple-webapp
+(this might fail because of the permissions and lack of login)
+
+- we need to build the image with the account name for Docker Hub.
+
+docker login
+
+docker build . -t slytechroot/my-simple-webapp
+
+(now the image should be pushed to the Docker Hub)
+
+- check on Docker Hub.
+- you can only have 1 private repository on Docker Hub.
+
+###########################
+
+Labs - Docker images <------------------------------------------------
+
+In learning you will teach, and in teaching you will learn.
+– Phil Collins
+
+1)
+How many images are available on this host?
+
+Hint:
+Run the command docker images and count the number of available images.
+
+9
+
+2)
+What is the size of the ubuntu image?
+
+Hint:
+Run the command docker images and look under the SIZE column.
+
+78.1MB
+
+3)
+We just pulled a new image. What is the tag on the newly pulled NGINX image?
+
+Hint:
+Run the docker images command and look for the TAG column.
+
+docker images
+
+1.14-alpine
+
+
+4)
+We just downloaded the code of an application. What is the base image used in the Dockerfile?
+Inspect the Dockerfile in the webapp-color directory.
+
+Hint:
+You can either open the file using vi /root/webapp-color/Dockerfile (or using commands such as cat/more/less/vim e.t.c) and look for the FROM instruction or search for it directly using grep -i FROM /root/webapp-color/Dockerfile.
+
+~ ➜  ls
+webapp-color
+
+~ ➜  cd webapp-color 
+
+~/webapp-color via 🐍 ➜  ls
+Dockerfile        app.py            requirements.txt  templates
+
+~/webapp-color via 🐍 ➜  cat Dockerfile 
+FROM python:3.6
+
+RUN pip install flask
+
+COPY . /opt/
+
+EXPOSE 8080
+
+WORKDIR /opt
+
+ENTRYPOINT ["python", "app.py"]
+
+
+5)
+To what location within the container is the application code copied to during a Docker build?
+Inspect the Dockerfile in the webapp-color directory.
+
+Hint:
+Open the Dockerfile and look for COPY command.
+
+/opt
+
+6)
+When a container is created using the image built with this Dockerfile, what is the command used to RUN the application inside it.
+Inspect the Dockerfile in the webapp-color directory.
+
+Hint:
+Open the Dockerfile and look for ENTRYPOINT command.
+
+ENTRYPOINT ["python", "app.py"]
+
+7)
+What port is the web application run within the container?
+Inspect the Dockerfile in the webapp-color directory.
+
+Hint:
+Open the Dockerfile and look for the port in EXPOSE command.
+
+EXPOSE 8080
+
+
+8)
+Build a docker image using the Dockerfile and name it webapp-color. No tag to be specified.
+
+Hint:
+Run the command 
+docker build -t webapp-color .
+
+Solution:
+Move to the directory first by using the cd command and verify the path of the working directory from pwd command :-
+
+$ cd /root/webapp-color/
+$ pwd
+/root/webapp-color
+
+Now, run the docker build command within that directory :-
+
+$ sudo docker build -t webapp-color .
+
+NOTE: At the end of the command, we used the "." (dot) symbol which indicates for the current directory, so you need to run this command from within the directory that has the Dockerfile.
+
+=> => transferring context: 3.03kB                                                                                            0.0s
+ => [2/4] RUN pip install flask                                                                                                5.8s
+ => [3/4] COPY . /opt/                                                                                                         0.1s 
+ => [4/4] WORKDIR /opt                                                                                                         0.1s 
+ => exporting to image                                                                                                        10.0s 
+ => => exporting layers                                                                                                        9.9s 
+ => => writing image sha256:397df2c1af8a031ca14123650a1a753a9066ba1ccb5af97a13b35c7904eeab9d                                   0.0s
+ => => naming to docker.io/library/webapp-color   
+ (COMPLETED)
+
+9)
+Run an instance of the image webapp-color and publish port 8080 on the container to 8282 on the host.
+
+Hint:
+Command: 
+docker run -p 8282:8080 webapp-color
+
+Container with image 'webapp-color'
+Container Port: 8080
+Host Port: 8282
+
+10)
+Access the application by clicking on the tab named HOST:8282 above your terminal.
+After you are done, you may stop the running container by hitting CTRL + C if you wish to.
+
+DONE.
+
+11)
+What is the base Operating System used by the python:3.6 image?
+If required, run an instance of the image to figure it out.
+
+Hint:
+Run docker run python:3.6 cat /etc/*release* command.
+
+~/webapp-color via 🐍 ➜  docker run python:3.6 cat /etc/*release*
+Unable to find image 'python:3.6' locally
+3.6: Pulling from library/python
+0e29546d541c: Already exists 
+9b829c73b52b: Already exists 
+cb5b7ae36172: Already exists 
+6494e4811622: Already exists 
+6f9f74896dfa: Already exists 
+5e3b1213efc5: Already exists 
+9fddfdc56334: Already exists 
+404f02044bac: Already exists 
+c4f42be2be53: Already exists 
+Digest: sha256:f8652afaf88c25f0d22354d547d892591067aa4026a7fa9a6819df9f300af6fc
+Status: Downloaded newer image for python:3.6
+cat: /etc/alpine-release: No such file or directory
+PRETTY_NAME="Debian GNU/Linux 11 (bullseye)"
+NAME="Debian GNU/Linux"
+VERSION_ID="11"
+VERSION="11 (bullseye)"
+VERSION_CODENAME=bullseye
+ID=debian
+HOME_URL="https://www.debian.org/"
+SUPPORT_URL="https://www.debian.org/support"
+BUG_REPORT_URL="https://bugs.debian.org/"
+
+12)
+What is the approximate size of the webapp-color image?
+
+Hint:
+Run docker images command and look under SIZE column.
+
+913MB/920MB
+
+
+13)
+That's really BIG for a Docker Image. Docker images are supposed to be small and light weight. Let us try to trim it down.
+
+14)
+Build a new smaller docker image by modifying the same Dockerfile and name it webapp-color and tag it lite.
+Hint: Find a smaller base image for python:3.6. Make sure the final image is less than 150MB.
+
+Hint:
+In the webapp-color directory, run the ls -l command to list the Dockerfile and other files.
+And modify Dockerfile to use python:3.6-alpine image and then build using docker build -t webapp-color:lite .
+
+~/webapp-color via 🐍 ➜  docker build -t webapp-color:lite . 
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            BuildKit is currently disabled; enable it by removing the DOCKER_BUILDKIT=0
+            environment-variable.
+
+Sending build context to Docker daemon  8.704kB
+Step 1/6 : FROM python:3.6-alpine
+
+Successfully built 8e7493a8ab63
+Successfully tagged webapp-color:lite
+
+
+
+Name: webapp-color:lite
+Image size less than 150MB.
+
+
+15)
+Run an instance of the new image webapp-color:lite and publish port 8080 on the container to 8383 on the host.
+
+Hint:
+Command: docker run -p 8383:8080 webapp-color:lite
+
+To run the container in the background, add the -d flag.
+
+~/webapp-color via 🐍 ✖ docker run -p 8383:8080 webapp-color:lite 
+ This is a sample web application that displays a colored background. 
+ A color can be specified in two ways. 
+
+Container with image 'webapp-color:lite'
+Container to publish port 8080 to 8383
+
+
+##################################
+
+Docker Environment Variables <---------------------------
+
+If you want to change anything in the app, you need to change the code.
+
+color=red
+
+- if you want to pass the variable you need to specify it during the docker run command:
+
+docker run -e APP_COLOR=blue simple-webapp-colors
+
+docker inspect simple-webapp-colors
+
+##############
+Labs - Environment Variables <----------------------
+
+1)
+Inspect the environment variables set on the running container and identify the value set to the APP_COLOR variable.
+
+Hint:
+To know the running containers, run the command docker ps and identify the running container name or container id.
+After knowing the container name or id, run the command docker inspect container-name/container-id and look for the values under Env. 
+
+Solution:
+Run this command to get the env fields from the inspect command: docker inspect <container-name> | grep -A 10 Env
+Replace container-name with the correct one.
+
+PINK
+
+2)
+Run a container named blue-app using image kodekloud/simple-webapp and set the environment variable APP_COLOR to blue. Make the application available on port 38282 on the host. The application listens on port 8080.
+
+Name: blue-app
+
+Image: kodekloud/simple-webapp
+
+ENV Variable: APP_COLOR=blue
+
+
+Hint:
+Run the command : docker run -p 38282:8080 --name blue-app -e APP_COLOR=blue -d kodekloud/simple-webapp
+To know the env field from within a webapp container, run docker exec -it blue-app env
+
+Hello from 804fb37eba3c!
+
+3)
+View the application by clicking the link HOST:38282 on the right side of your terminal bar and ensure it has the right color.
+
+4)
+Deploy a mysql database using the mysql image and name it mysql-db.
+Set the database password to use db_pass123. Lookup the mysql image on Docker Hub and identify the correct environment variable to use for setting the root password.
+
+Name: mysql-db
+Image: mysql
+Env: MYSQL_ROOT_PASSWORD=db_pass123
+
+Hint:
+Run the command: docker run -d -e MYSQL_ROOT_PASSWORD=db_pass123 --name mysql-db mysql
+
+To know the env field from within a mysql-db container, run docker exec -it mysql-db env
+
+~ ➜  docker run -d -e MYSQL_ROOT_PASSWORD=db_pass123 --name mysql-db mysql
+2660fffc4b8a5e652de56eb355e4401ba82cfffd9d2f4398c353e2e5126f675d
+
+~ ➜  docker exec -it mysql-db env
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+HOSTNAME=2660fffc4b8a
+TERM=xterm
+MYSQL_ROOT_PASSWORD=db_pass123
+GOSU_VERSION=1.19
+MYSQL_MAJOR=innovation
+MYSQL_VERSION=9.5.0-1.el9
+MYSQL_SHELL_VERSION=9.5.0-1.el9
+HOME=/root
+
+#########################
+
+Commands vs Entrypoint <------------------------
+
+docker run ubuntu
+
+- containers are not meant to run an OS
+
+- append a command to change the default command
+
+docker run ubuntu [COMMAND]
+
+docker run ubuntu sleep 5
+
+###### We make the sleep command permanent in the DockerFile.
+
+FROM Ubuntu
+
+CMD sleep 5
+
+#####
+
+docker build -t ubuntu-sleeper .
+
+docker run ubuntu-sleeper
+
+#to change it temporarily we run the new sleep command at startup:
+docker run ubuntu-sleeper sleep 10
+
+- what if we want to keep the command shorter like so:
+docker run ubuntu-sleeper 10
+
+- in this last case we'd use the ENTRYPOINT command
+
+#####
+FROM Ubuntu
+
+ENTRYPOINT ["sleep"]
+
+#####
+
+Command at Startup: sleep 10
+
+- how do you configure a default value for the sleep command if one is not specified at the command line
+
+####
+FROM Ubuntu
+
+ENTRYPOINT ["sleep"]
+
+CMD["5"]
+
+####
+
+docker run --entrypoint sleep2.0 ubuntu-sleeper 10
+
+command during startup: sleep2.0 10
+
+#####################
+
+Labs - Command & Entrypoint <----------------------------------
+
+The more that you read, the more things you will know. The more that you learn, the more places you'll go.
+– Dr. Seuss
+
+1)
+Dockerfiles for a few commonly used Docker Images are given in the /root (current) directory. Inspect them and try to answer the following questions.
+
+~ ➜  ls
+Dockerfile-mysql      Dockerfile-python     Dockerfile-ubuntu     Dockerfile-wordpress  app
+
+~ ➜  cat Dockerfile-mysql 
+
+################
+FROM debian:stretch-slim
+
+# add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
+RUN groupadd -r mysql && useradd -r -g mysql mysql
+
+RUN apt-get update && apt-get install -y --no-install-recommends gnupg dirmngr && rm -rf /var/lib/apt/lists/*
+
+# add gosu for easy step-down from root
+ENV GOSU_VERSION 1.7
+RUN set -x \
+        && apt-get update && apt-get install -y --no-install-recommends ca-certificates wget && rm -rf /var/lib/apt/lists/* \
+        && wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
+        && wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" \
+        && export GNUPGHOME="$(mktemp -d)" \
+        && gpg --batch --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
+        && gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
+        && gpgconf --kill all \
+        && rm -rf "$GNUPGHOME" /usr/local/bin/gosu.asc \
+        && chmod +x /usr/local/bin/gosu \
+        && gosu nobody true \
+        && apt-get purge -y --auto-remove ca-certificates wget
+
+RUN mkdir /docker-entrypoint-initdb.d
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+# for MYSQL_RANDOM_ROOT_PASSWORD
+                pwgen \
+# for mysql_ssl_rsa_setup
+                openssl \
+# FATAL ERROR: please install the following Perl modules before executing /usr/local/mysql/scripts/mysql_install_db:
+# File::Basename
+# File::Copy
+# Sys::Hostname
+# Data::Dumper
+                perl \
+        && rm -rf /var/lib/apt/lists/*
+
+RUN set -ex; \
+# gpg: key 5072E1F5: public key "MySQL Release Engineering <mysql-build@oss.oracle.com>" imported
+        key='A4A9406876FCBD3C456770C88C718D3B5072E1F5'; \
+        export GNUPGHOME="$(mktemp -d)"; \
+        gpg --batch --keyserver ha.pool.sks-keyservers.net --recv-keys "$key"; \
+        gpg --batch --export "$key" > /etc/apt/trusted.gpg.d/mysql.gpg; \
+        gpgconf --kill all; \
+        rm -rf "$GNUPGHOME"; \
+        apt-key list > /dev/null
+
+ENV MYSQL_MAJOR 8.0
+ENV MYSQL_VERSION 8.0.17-1debian9
+
+RUN echo "deb http://repo.mysql.com/apt/debian/ stretch mysql-${MYSQL_MAJOR}" > /etc/apt/sources.list.d/mysql.list
+
+# the "/var/lib/mysql" stuff here is because the mysql-server postinst doesn't have an explicit way to disable the mysql_install_db codepath besides having a database already "configured" (ie, stuff in /var/lib/mysql/mysql)
+# also, we set debconf keys to make APT a little quieter
+RUN { \
+                echo mysql-community-server mysql-community-server/data-dir select ''; \
+                echo mysql-community-server mysql-community-server/root-pass password ''; \
+                echo mysql-community-server mysql-community-server/re-root-pass password ''; \
+                echo mysql-community-server mysql-community-server/remove-test-db select false; \
+        } | debconf-set-selections \
+        && apt-get update && apt-get install -y mysql-community-client="${MYSQL_VERSION}" mysql-community-server-core="${MYSQL_VERSION}" && rm -rf /var/lib/apt/lists/* \
+        && rm -rf /var/lib/mysql && mkdir -p /var/lib/mysql /var/run/mysqld \
+        && chown -R mysql:mysql /var/lib/mysql /var/run/mysqld \
+# ensure that /var/run/mysqld (used for socket and lock files) is writable regardless of the UID our mysqld instance ends up having at runtime
+        && chmod 777 /var/run/mysqld
+
+VOLUME /var/lib/mysql
+# Config files
+COPY config/ /etc/mysql/
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN ln -s usr/local/bin/docker-entrypoint.sh /entrypoint.sh # backwards compat
+ENTRYPOINT ["docker-entrypoint.sh"]
+
+EXPOSE 3306 33060
+CMD ["mysqld"]
+
+~ ➜  
+
+########################
+
+~ ➜  cat Dockerfile-python
+#
+# NOTE: THIS DOCKERFILE IS GENERATED VIA "update.sh"
+#
+# PLEASE DO NOT EDIT IT DIRECTLY.
+#
+
+FROM buildpack-deps:buster
+
+# ensure local python is preferred over distribution python
+ENV PATH /usr/local/bin:$PATH
+
+# http://bugs.python.org/issue19846
+# > At the moment, setting "LANG=C" on a Linux system *fundamentally breaks Python 3*, and that's not OK.
+ENV LANG C.UTF-8
+
+# extra dependencies (over what buildpack-deps already includes)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+                tk-dev \
+                uuid-dev \
+        && rm -rf /var/lib/apt/lists/*
+
+ENV GPG_KEY E3FF2839C048B25C084DEBE9B26995E310250568
+ENV PYTHON_VERSION 3.8.0b3
+
+RUN set -ex \
+        \
+        && wget -O python.tar.xz "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz" \
+        && wget -O python.tar.xz.asc "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz.asc" \
+        && export GNUPGHOME="$(mktemp -d)" \
+        && gpg --batch --keyserver ha.pool.sks-keyservers.net --recv-keys "$GPG_KEY" \
+        && gpg --batch --verify python.tar.xz.asc python.tar.xz \
+        && { command -v gpgconf > /dev/null && gpgconf --kill all || :; } \
+        && rm -rf "$GNUPGHOME" python.tar.xz.asc \
+        && mkdir -p /usr/src/python \
+        && tar -xJC /usr/src/python --strip-components=1 -f python.tar.xz \
+        && rm python.tar.xz \
+        \
+        && cd /usr/src/python \
+        && gnuArch="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" \
+        && ./configure \
+                --build="$gnuArch" \
+                --enable-loadable-sqlite-extensions \
+                --enable-optimizations \
+                --enable-shared \
+                --with-system-expat \
+                --with-system-ffi \
+                --without-ensurepip \
+        && make -j "$(nproc)" \
+        && make install \
+        && ldconfig \
+        \
+        && find /usr/local -depth \
+                \( \
+                        \( -type d -a \( -name test -o -name tests \) \) \
+                        -o \
+                        \( -type f -a \( -name '*.pyc' -o -name '*.pyo' \) \) \
+                \) -exec rm -rf '{}' + \
+        && rm -rf /usr/src/python \
+        \
+        && python3 --version
+
+# make some useful symlinks that are expected to exist
+RUN cd /usr/local/bin \
+        && ln -s idle3 idle \
+        && ln -s pydoc3 pydoc \
+        && ln -s python3 python \
+        && ln -s python3-config python-config
+
+# if this is called "PIP_VERSION", pip explodes with "ValueError: invalid truth value '<VERSION>'"
+ENV PYTHON_PIP_VERSION 19.2.1
+# https://github.com/pypa/get-pip
+ENV PYTHON_GET_PIP_URL https://github.com/pypa/get-pip/raw/404c9418e33c5031b1a9ab623168b3e8a2ed8c88/get-pip.py
+ENV PYTHON_GET_PIP_SHA256 56bb63d3cf54e7444351256f72a60f575f6d8c7f1faacffae33167afc8e7609d
+
+RUN set -ex; \
+        \
+        wget -O get-pip.py "$PYTHON_GET_PIP_URL"; \
+        echo "$PYTHON_GET_PIP_SHA256 *get-pip.py" | sha256sum --check --strict -; \
+        \
+        python get-pip.py \
+                --disable-pip-version-check \
+                --no-cache-dir \
+                "pip==$PYTHON_PIP_VERSION" \
+        ; \
+        pip --version; \
+        \
+        find /usr/local -depth \
+                \( \
+                        \( -type d -a \( -name test -o -name tests \) \) \
+                        -o \
+                        \( -type f -a \( -name '*.pyc' -o -name '*.pyo' \) \) \
+                \) -exec rm -rf '{}' +; \
+        rm -f get-pip.py
+
+CMD ["python3"]#                        
+
+#######################
+
+~ ➜  cat Dockerfile-ubuntu 
+#
+# Ubuntu Dockerfile
+#
+# https://github.com/dockerfile/ubuntu
+#
+
+# Pull base image.
+FROM ubuntu:14.04
+
+# Install.
+RUN \
+  sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list && \
+  apt-get update && \
+  apt-get -y upgrade && \
+  apt-get install -y build-essential && \
+  apt-get install -y software-properties-common && \
+  apt-get install -y byobu curl git htop man unzip vim wget && \
+  rm -rf /var/lib/apt/lists/*
+
+# Add files.
+ADD root/.bashrc /root/.bashrc
+ADD root/.gitconfig /root/.gitconfig
+ADD root/.scripts /root/.scripts
+
+# Set environment variables.
+ENV HOME /root
+
+# Define working directory.
+WORKDIR /root
+
+# Define default command.
+CMD ["bash"]
+
+#################
+
+~ ➜  cat Dockerfile-wordpress 
+FROM php:7.1-apache
+
+# install the PHP extensions we need (https://make.wordpress.org/hosting/handbook/handbook/server-environment/#php-extensions)
+RUN set -ex; \
+        \
+        savedAptMark="$(apt-mark showmanual)"; \
+        \
+        apt-get update; \
+        apt-get install -y --no-install-recommends \
+                libjpeg-dev \
+                libmagickwand-dev \
+                libpng-dev \
+        ; \
+        \
+        docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr; \
+        docker-php-ext-install -j "$(nproc)" \
+                bcmath \
+                exif \
+                gd \
+                mysqli \
+                opcache \
+                zip \
+        ; \
+        pecl install imagick-3.4.4; \
+        docker-php-ext-enable imagick; \
+        \
+# reset apt-mark's "manual" list so that "purge --auto-remove" will remove all build dependencies
+        apt-mark auto '.*' > /dev/null; \
+        apt-mark manual $savedAptMark; \
+        ldd "$(php -r 'echo ini_get("extension_dir");')"/*.so \
+                | awk '/=>/ { print $3 }' \
+                | sort -u \
+                | xargs -r dpkg-query -S \
+                | cut -d: -f1 \
+                | sort -u \
+                | xargs -rt apt-mark manual; \
+        \
+        apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
+        rm -rf /var/lib/apt/lists/*
+
+# set recommended PHP.ini settings
+# see https://secure.php.net/manual/en/opcache.installation.php
+RUN { \
+                echo 'opcache.memory_consumption=128'; \
+                echo 'opcache.interned_strings_buffer=8'; \
+                echo 'opcache.max_accelerated_files=4000'; \
+                echo 'opcache.revalidate_freq=2'; \
+                echo 'opcache.fast_shutdown=1'; \
+        } > /usr/local/etc/php/conf.d/opcache-recommended.ini
+# https://wordpress.org/support/article/editing-wp-config-php/#configure-error-logging
+RUN { \
+# https://www.php.net/manual/en/errorfunc.constants.php
+# https://github.com/docker-library/wordpress/issues/420#issuecomment-517839670
+                echo 'error_reporting = E_ERROR | E_WARNING | E_PARSE | E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_COMPILE_WARNING | E_RECOVERABLE_ERROR'; \
+                echo 'display_errors = Off'; \
+                echo 'display_startup_errors = Off'; \
+                echo 'log_errors = On'; \
+                echo 'error_log = /dev/stderr'; \
+                echo 'log_errors_max_len = 1024'; \
+                echo 'ignore_repeated_errors = On'; \
+                echo 'ignore_repeated_source = Off'; \
+                echo 'html_errors = Off'; \
+        } > /usr/local/etc/php/conf.d/error-logging.ini
+
+RUN a2enmod rewrite expires
+
+VOLUME /var/www/html
+
+ENV WORDPRESS_VERSION 5.2.2
+ENV WORDPRESS_SHA1 3605bcbe9ea48d714efa59b0eb2d251657e7d5b0
+
+RUN set -ex; \
+        curl -o wordpress.tar.gz -fSL "https://wordpress.org/wordpress-${WORDPRESS_VERSION}.tar.gz"; \
+        echo "$WORDPRESS_SHA1 *wordpress.tar.gz" | sha1sum -c -; \
+# upstream tarballs include ./wordpress/ so this gives us /usr/src/wordpress
+        tar -xzf wordpress.tar.gz -C /usr/src/; \
+        rm wordpress.tar.gz; \
+        chown -R www-data:www-data /usr/src/wordpress
+
+COPY docker-entrypoint.sh /usr/local/bin/
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["apache2-foreground"]
+
+########################
+
+2)
+What is the ENTRYPOINT configured on the mysql image?
+
+Hint:
+Open the file /root/Dockerfile-mysql and inspect the ENTRYPOINT instruction.
+
+Solution:
+Run: cat Dockerfile-mysql | grep ENTRYPOINT
+
+~ ➜  cat Dockerfile-mysql | grep ENTRYPOINT
+ENTRYPOINT ["docker-entrypoint.sh"]
+
+
+3)
+What is the CMD configured on the wordpress image?
+
+Hint:
+Open the file /root/Dockerfile-wordpress and inspect the CMD instruction.
+
+Solution:
+Run: cat Dockerfile-wordpress | grep CMD
+
+~ ➜  cat Dockerfile-wordpress | grep CMD
+CMD ["apache2-foreground"]
+
+4)
+What is the final command run at startup when the wordpress image is run. Consider both ENTRYPOINT and CMD instructions.
+
+Hint:
+Open the file /root/Dockerfile-wordpress and inspect the both ENTRYPOINT + CMD instructions.
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["apache2-foreground"]
+
+
+5)
+What is the command run at startup when the ubuntu image is run?
+
+Hint:
+Open the file /root/Dockerfile-ubuntu and inspect the CMD instruction.
+
+Solution:
+Run: cat Dockerfile-ubuntu | grep CMD
+
+~ ➜  cat Dockerfile-ubuntu | grep CMD
+CMD ["bash"]
+
+6)
+Run an instance of the ubuntu image to run the sleep 1000 command at startup.
+Run it in detached mode.
+
+Hint:
+Command: docker run -d  ubuntu sleep 1000
+
+###########################################
+
+Docker Compose <-------------------------------------------
+
+- configurations in YAML files
+
+docker-compose.yaml:
+services:
+	web:
+		image:"sly/simple-webapp"
+	database:
+		image:"mongodb"
+	messaging:
+		image:"redis/alpine"
+	orchestration:
+		image:"ansible"
+		
+docker-compose up
+
+- good to run on a single docker host
+
+docker run -d --name=redis redis
+
+docker run -d --name=db postgres
+
+docker run -d --name=vote -p 5000:80 --link redis:redis voting-app
+
+docker run -d --name=result -p 5001:80 --link db:db result-app
+
+docker run -d --name=worker worker
+
+
+- docker run --links!!!!!!!!!!!!!
+
+- using the style of --link is deprecated!!!!!!!!!!!!!!!
+docker run -d --name=result -p 5001:80 --link db:db --link redis:redis result-app
+
+#########################
+version: "3.8"
+
+services:
+  redis:
+    image: redis
+    container_name: redis
+
+  db:
+    image: postgres
+    container_name: db
+    environment:
+      POSTGRES_PASSWORD: postgres
+
+  vote:
+    image: voting-app
+    container_name: vote
+    ports:
+      - "5000:80"
+    depends_on:
+      - redis
+
+  result:
+    image: result-app
+    container_name: result
+    ports:
+      - "5001:80"
+    depends_on:
+      - db
+
+  worker:
+    image: worker
+    container_name: worker
+    depends_on:
+      - redis
+      - db
+########################
+ Run With:
+ 
+ docker compose up -d
+
+
+
+Docker compose - build <--------------------------
+
+#########################
+version: "3.8"
+
+services:
+  redis:
+    image: redis
+    container_name: redis
+
+  db:
+    image: postgres
+    container_name: db
+    environment:
+      POSTGRES_PASSWORD: postgres
+
+  vote:
+    build: ./vote
+    container_name: vote
+    ports:
+      - "5000:80"
+    depends_on:
+      - redis
+
+  result:
+    image: ./result
+    container_name: result
+    ports:
+      - "5001:80"
+    depends_on:
+      - db
+
+  worker:
+    image: ./worker
+    container_name: worker
+    depends_on:
+      - redis
+      - db
+########################
+
+Demo - Example Voting Application <----------------------
+
+https://github.com/dockersamples/example-voting-app
+
+
+
+Demo - Example Voting Application with Docker Compose <------------------------
+
+- install docker compose
+- create compose file
+- run docker compose
+
+cat > docker-compose.yaml
+
+(see above code snippet)
+
+docker-compose up
+
+
+Demo -Docker Compose <--------------------------
+
+Labs: Docker Compose <---------------------
+You teach best what you most need to learn.
+– Richard Bach
+
+1)
+First create a redis database container called redis, image redis:alpine.
+If you are unsure, check the hints section for the exact commands.
+
+Hint:
+Run the command: docker run --name redis -d redis:alpine
+
+2)
+Next, create a simple container called clickcounter with the image kodekloud/click-counter, link it to the redis container that we created in the previous task and then expose it on the host port 8085
+
+The clickcounter app run on port 5000.
+if you are unsure, check the hints section for the exact commands.
+
+
+Hint:
+Run the command: docker run -d --name=clickcounter --link redis:redis -p 8085:5000 kodekloud/click-counter
+
+
+3)
+You can now access this application using the Click-Counter tab above the terminal.
+
+Refresh the page and see the count increase.
+
+
+4)
+Let's clean up the actions carried out in previous steps. Delete the redis and the clickcounter containers.
+
+Hint:
+To stop the containers: docker stop <CONTAINER-NAME>
+
+To delete the containers: docker rm <CONTAINER-NAME>
+
+
+5)
+Create a docker-compose.yml file under the directory /root/clickcounter. Once done, run docker-compose up.
+
+The compose file should have the exact specification as follows -
+
+    redis service specification - Image name should be redis:alpine.
+    clickcounter service specification - Image name should be kodekloud/click-counter, app is run on port 5000 and expose it on the host port 8085 in the compose file.
+
+
+Hint:
+Use the below compose file:
+
+services:
+  redis:
+    image: redis:alpine
+  clickcounter:
+    image: kodekloud/clickcounter
+    ports:
+    - 8085:5000
+version: '3.8'
+
+Then run a docker-compose up -d command.
+To run containers in a background, added -d flag.
+
+####################
+
+Please click on the links below for further reference:
+
+https://docs.docker.com/compose/
+
+https://docs.docker.com/engine/reference/commandline/compose/
+
+https://github.com/dockersamples/example-voting-app
+
+################################
+
+Docker Engine <------------------
+
+- Docker CLI
+- REST API
+- Docker Daemon
+
+Docker CLI can be on a remote host, running commands.
+
+docker -H=remote-docker-engine:2375
+
+docker -H=10.123.2.1:2375 run nginx
+
+
+How are applications containerized?
+- process ID, namespace, mount, interprocess, network, unix timesharing.
+
+cgroups (control groups) - to restrict the amount of resources used by a Docker container.
+All Docker containers share the same CPU and memory of the Linux system where they are hosted.
+
+docker run --cpus=.5 ubuntu
+
+docker run --memory=100m ubuntu
+
+
+Docker Storage <-------------------------
+
+/var/lib/docker
+aufs
+containers
+image
+volumes
+
+Layered architecture:
+
+### Dockerfile ####
+FROM Ubuntu
+RUN apt-get update && apt-get -y install python
+
+RUN pip install flask flask-mysql
+
+COPY . /opt/source-code
+
+ENTRYPOINT FLASH_APP=/opt/source-code/app.py flash run
+
+######
+
+docker build Dockerfile -t sly/my-custom-app
+
+- each layer has a certain amount of MBs based on the layer and content. 
+
+
+####################################
+
+LABS: Docker Storage <----------------------------
+
+Be not in despair, the way is very difficult, like walking on the edge of a razor; yet despair not, arise, awake, and find the ideal, the goal.
+– Swami Vivekananda
+
+1)
+What location are the files related to the docker containers and images stored?
+
+Hint:
+Location is /var/lib/docker.
+
+2)
+What directory under /var/lib/docker are the files related to the container alpine-3 image stored?
+
+Hint:
+The directory name is the same as the container id.
+
+Solution:
+It's available in the location /var/lib/docker/containers/.
+
+Run docker ps -a command and match the container id of alpine-3 with the directory name.
+
+/var/lib/docker ➜  docker ps -a 
+CONTAINER ID   IMAGE     COMMAND     CREATED         STATUS                     PORTS     NAMES
+4c35d9ced798   alpine    "/bin/sh"   2 minutes ago   Exited (0) 2 minutes ago             alpine-3
+7b813536e22a   alpine    "/bin/sh"   2 minutes ago   Exited (0) 2 minutes ago             alpine-2
+12aee4005a78   alpine    "/bin/sh"   2 minutes ago   Exited (0) 2 minutes ago             alpine-1
+
+
+
+3)
+Run a mysql container named mysql-db using the mysql image. Set database password to db_pass123
+Note: Remember to run it in the detached mode.
+
+Hint:
+Run the command: 
+docker run -d --name mysql-db -e MYSQL_ROOT_PASSWORD=db_pass123 mysql
+
+/var/lib/docker ➜  docker run -d --name mysql-db -e MYSQL_ROOT_PASSWORD=db_pass123 mysql
+44b7dd5e33b34fca18ad8b4e99183695acac25d93e0a5be3cb0ebad8009550ad
+
+
+4)
+We have just written some data into the database. To view the information we wrote, run the get-data.sh script available in the /root directory. How many customers data have been written to the database?
+Command: sh get-data.sh
+
+/var/lib/docker ➜  cat /root/get-data.sh
+docker exec mysql-db mysql -pdb_pass123 -e 'use foo; select * from myTable'
+
+/var/lib/docker ➜  bash /root/get-data.sh
+id      Name    Phone   Email
+1       Kareem  130-5655        Duis.volutpat.nunc@quamCurabitur.org
+2       Ruby    1-584-149-0770  Nulla.tempor@vitaeorciPhasellus.org
+3       Rowan   199-8663        consectetuer.adipiscing.elit@Sedmalesuada.co.uk
+4       Alisa   220-6017        elementum.sem.vitae@enimMauris.edu
+5       Ella    731-0337        fermentum@nec.net
+6       Tiger   658-4480        quis.diam@odiovelest.net
+7       Felix   1-274-848-3378  Mauris.vel@arcu.com
+8       Karina  1-390-796-3451  sagittis.semper@odioapurus.co.uk
+9       Davis   605-8539        venenatis.vel@risusDonecnibh.com
+10      Mohammad        1-590-174-1489  ornare.sagittis.felis@natoque.ca
+11      Zane    362-1770        Aenean.euismod@condimentum.co.uk
+12      Piper   1-231-386-6903  nunc.sed.pede@nascetur.ca
+13      Marshall        1-383-729-4990  Cras.interdum.Nunc@neceuismod.ca
+14      Zena    241-6641        Fusce.mollis.Duis@lobortis.org
+15      Abdul   1-748-387-9935  eget.lacus.Mauris@Crasvehicula.com
+16      Chase   1-401-241-9169  ante.dictum.mi@nascetur.org
+17      Zahir   921-0663        non@nonummyutmolestie.edu
+18      Brenda  1-691-909-5827  Quisque.ac@magnaCras.co.uk
+19      Laura   1-562-983-9565  Quisque.ornare.tortor@sollicitudinadipiscing.ca
+20      Madison 1-348-737-0587  Quisque.varius@Intinciduntcongue.org
+21      Tanek   991-6278        dignissim.magna@Pellentesqueutipsum.net
+22      Dakota  893-0792        Nullam.enim.Sed@nulla.net
+23      Boris   1-297-302-5792  non.sollicitudin@eleifendegestasSed.co.uk
+24      Celeste 723-6729        mauris.rhoncus@eunulla.edu
+25      Connor  1-203-901-7531  et@loremipsumsodales.edu
+26      Perry   1-756-607-9187  eros.turpis@tristiquepharetra.co.uk
+27      Hayfa   1-609-407-3019  non.lobortis.quis@malesuadafringilla.net
+28      Todd    343-0454        id.erat@arcu.org
+29      Fuller  881-7273        non.feugiat.nec@adipiscingelit.net
+30      Rama    1-927-605-0610  nonummy.ultricies.ornare@malesuada.co.uk
+mysql: [Warning] Using a password on the command line interface can be insecure.
+
+30
+
+/var/lib/docker ➜  
+
+5)
+The database crashed. Are you able to view the data now?
+Use the same command to try and view data. Try to find the container.
+
+/var/lib/docker ✖ sh /root/get-data.sh
+Error response from daemon: No such container: mysql-db
+
+No
+
+6)
+Damn! We didn't plan that well at all. Let's try again!!
+
+same, it didn't work.
+
+
+7)
+Run a mysql container again, but this time map a volume to the container so that the data stored by the container is stored at /opt/data on the host.
+Use the same name : mysql-db and same password: db_pass123 as before. Mysql stores data at /var/lib/mysql inside the container.
+
+Hint:
+Run the command: 
+docker run -v /opt/data:/var/lib/mysql -d --name mysql-db -e MYSQL_ROOT_PASSWORD=db_pass123 mysql
+
+
+/var/lib/docker ➜  docker run -v /opt/data:/var/lib/mysql -d --name mysql-db -e MYSQL_ROOT_PASSWORD=db_pass123 mysql
+05d3d55d0bd3f2b3d9788e0c934a17295c1dce9dcc5e2fd6fb5b8446be44c4c4
+
+
+
+Task completed
+
+Correct Password set
+
+Host: /opt/data
+
+Container: /var/lib/mysql
+
+
+8)
+~ ➜  cat get-data.sh      
+docker exec mysql-db mysql -pdb_pass123 -e 'use foo; select * from myTable'
+
+We have now re-written data again. Run the get-data.sh script to ensure data is present.
+Command: sh get-data.sh
+
+OK
+
+9)
+Disaster strikes.. again! And the database crashed again. But this time we have the data stored at /opt/data directory. Re-deploy a new mysql instance using the same options as before.
+
+Just run the same command as before. Here it is for your convenience: docker run -v /opt/data:/var/lib/mysql -d --name mysql-db -e MYSQL_ROOT_PASSWORD=db_pass123 mysql
+
+~ ➜  docker run -v /opt/data:/var/lib/mysql -d --name mysql-db -e MYSQL_ROOT_PASSWORD=db_pass123 mysql
+5450cb5b865de18b945507714e1431c76dcc85a87916bd468499e2b3e80c85d6
+
+
+Task completed
+Correct Password set
+Host: /opt/data
+Container: /var/lib/mysql
+
+10)
+Fetch data and make sure it is present.
+command: sh get-data.sh
+
+~ ➜  sh get-data.sh 
+mysql: [Warning] Using a password on the command line interface can be insecure.
+id      Name    Phone   Email
+1       Kareem  130-5655        Duis.volutpat.nunc@quamCurabitur.org
+2       Ruby    1-584-149-0770  Nulla.tempor@vitaeorciPhasellus.org
+3       Rowan   199-8663        consectetuer.adipiscing.elit@Sedmalesuada.co.uk
+4       Alisa   220-6017        elementum.sem.vitae@enimMauris.edu
+5       Ella    731-0337        fermentum@nec.net
+6       Tiger   658-4480        quis.diam@odiovelest.net
+7       Felix   1-274-848-3378  Mauris.vel@arcu.com
+8       Karina  1-390-796-3451  sagittis.semper@odioapurus.co.uk
+9       Davis   605-8539        venenatis.vel@risusDonecnibh.com
+10      Mohammad        1-590-174-1489  ornare.sagittis.felis@natoque.ca
+11      Zane    362-1770        Aenean.euismod@condimentum.co.uk
+12      Piper   1-231-386-6903  nunc.sed.pede@nascetur.ca
+13      Marshall        1-383-729-4990  Cras.interdum.Nunc@neceuismod.ca
+14      Zena    241-6641        Fusce.mollis.Duis@lobortis.org
+15      Abdul   1-748-387-9935  eget.lacus.Mauris@Crasvehicula.com
+16      Chase   1-401-241-9169  ante.dictum.mi@nascetur.org
+17      Zahir   921-0663        non@nonummyutmolestie.edu
+18      Brenda  1-691-909-5827  Quisque.ac@magnaCras.co.uk
+19      Laura   1-562-983-9565  Quisque.ornare.tortor@sollicitudinadipiscing.ca
+20      Madison 1-348-737-0587  Quisque.varius@Intinciduntcongue.org
+21      Tanek   991-6278        dignissim.magna@Pellentesqueutipsum.net
+22      Dakota  893-0792        Nullam.enim.Sed@nulla.net
+23      Boris   1-297-302-5792  non.sollicitudin@eleifendegestasSed.co.uk
+24      Celeste 723-6729        mauris.rhoncus@eunulla.edu
+25      Connor  1-203-901-7531  et@loremipsumsodales.edu
+26      Perry   1-756-607-9187  eros.turpis@tristiquepharetra.co.uk
+27      Hayfa   1-609-407-3019  non.lobortis.quis@malesuadafringilla.net
+28      Todd    343-0454        id.erat@arcu.org
+29      Fuller  881-7273        non.feugiat.nec@adipiscingelit.net
+30      Rama    1-927-605-0610  nonummy.ultricies.ornare@malesuada.co.uk
+
+
+##############################
+
+Docker Networking <-----------------------------------
+
+Default networks: 
+
+- bridge - all network attach to this network. They are all private networked.
+docker run ubuntu
+
+
+- none - the containers are NOT attached to ANY network. Isolated network. 
+docker run Ubuntu --network=none
+
+- host - this removed the network isolation and exposes to the outside network externally. You CANNOT run multiple applications and expose the same port externally and multiple containers now run on the same port!!!
+docker run Ubuntu --network=host
+
+docker network create \
+--driver bridge \
+--subnet 182.18.0.0/16
+custom-isolated-network
+
+docker network ls
+
+- how to see ip addresses attached to a container
+docker inspect blissful_hopper
+
+Embedded DNS:
+- docker has a built-in DNS server/service running at 127.0.0.11
+
+############
+
+LABS: Docker Networking <-----------------------------
+
+Question everything. Learn something. Answer nothing.
+– Euripides
+
+1)
+Explore the current setup and identify the number of networks that exist on this system.
+
+Hint:
+Run the command: 
+docker network ls
+
+~ ➜  docker network ls
+NETWORK ID     NAME      DRIVER    SCOPE
+653731f5a251   bridge    bridge    local
+c9ae16eb7e15   host      host      local
+b90d714f40ac   none      null      local
+
+~ ➜  
+
+3
+
+
+2)
+What is the ID associated with the bridge network?
+
+Hint:
+Run the command: docker network ls
+
+653731f5a251
+
+3)
+We just ran a container named alpine-1. Identify the network it is attached to.
+
+Hint:
+Run the command docker inspect alpine-1 and look under the Networks section.
+
+~ ➜  docker inspect alpine-1
+[
+    {
+        "Id": "f35f5f7fa4cb8b293cb3cc174e5ab90f321beabc0fb56fa1889b62d621c37f89",
+        "Created": "2026-02-17T05:59:19.51848577Z",
+        "Path": "sleep",
+        "Args": [
+            "1000"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 986,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-02-17T05:59:19.833126893Z",
+            "FinishedAt": "0001-01-01T00:00:00Z"
+        },
+        "Image": "sha256:706db57fb2063f39f69632c5b5c9c439633fda35110e65587c5d85553fd1cc38",
+        "ResolvConfPath": "/var/lib/docker/containers/f35f5f7fa4cb8b293cb3cc174e5ab90f321beabc0fb56fa1889b62d621c37f89/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/f35f5f7fa4cb8b293cb3cc174e5ab90f321beabc0fb56fa1889b62d621c37f89/hostname",
+        "HostsPath": "/var/lib/docker/containers/f35f5f7fa4cb8b293cb3cc174e5ab90f321beabc0fb56fa1889b62d621c37f89/hosts",
+        "LogPath": "/var/lib/docker/containers/f35f5f7fa4cb8b293cb3cc174e5ab90f321beabc0fb56fa1889b62d621c37f89/f35f5f7fa4cb8b293cb3cc174e5ab90f321beabc0fb56fa1889b62d621c37f89-json.log",
+        "Name": "/alpine-1",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": null,
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "host",
+            "PortBindings": {},
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 999,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": [],
+            "BlkioDeviceWriteBps": [],
+            "BlkioDeviceReadIOps": [],
+            "BlkioDeviceWriteIOps": [],
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [],
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": null,
+            "PidsLimit": null,
+            "Ulimits": [],
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "MaskedPaths": [
+                "/proc/asound",
+                "/proc/acpi",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/sys/firmware",
+                "/sys/devices/virtual/powercap"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/lib/docker/overlay2/1a033c2b91a01c7ab7859386876c7644dd935c087d2e19bba78949794efc25d6-init/diff:/var/lib/docker/overlay2/afce01f61d47caa7bbad716957868e83fe82b28e2fcff4c4f27b8caf06ca11df/diff",
+                "MergedDir": "/var/lib/docker/overlay2/1a033c2b91a01c7ab7859386876c7644dd935c087d2e19bba78949794efc25d6/merged",
+                "UpperDir": "/var/lib/docker/overlay2/1a033c2b91a01c7ab7859386876c7644dd935c087d2e19bba78949794efc25d6/diff",
+                "WorkDir": "/var/lib/docker/overlay2/1a033c2b91a01c7ab7859386876c7644dd935c087d2e19bba78949794efc25d6/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [],
+        "Config": {
+            "Hostname": "controlplane",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            ],
+            "Cmd": [
+                "sleep",
+                "1000"
+            ],
+            "Image": "alpine",
+            "Volumes": null,
+            "WorkingDir": "/",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "2d87d608f9bea95be92fd774857fadd488728932fa5aa55308f817670d19c31f",
+            "SandboxKey": "/var/run/docker/netns/default",
+            "Ports": {},
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "",
+            "Gateway": "",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "",
+            "IPPrefixLen": 0,
+            "IPv6Gateway": "",
+            "MacAddress": "",
+            "Networks": {
+                "host": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "MacAddress": "",
+                    "NetworkID": "c9ae16eb7e1591f4393fb7fed794bc6088832c131003d84372b909d880bd1c0e",
+                    "EndpointID": "986eb12cb04fda3849fcea193b2f4e04114ca32be587aa579624427425576614",
+                    "Gateway": "",
+                    "IPAddress": "",
+                    "IPPrefixLen": 0,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DriverOpts": null,
+                    "DNSNames": null
+                }
+            }
+        }
+    }
+]
+
+
+host
+
+4)
+What is the subnet configured on bridge network?
+
+Run the command:
+docker network inspect bridge
+
+~ ➜  docker network inspect bridge
+[
+    {
+        "Name": "bridge",
+        "Id": "653731f5a251741aaa2ceaa86e32f0ff89fb6f9a5a6f1ebb07be577eb71dc94a",
+        "Created": "2026-02-17T05:52:59.833654596Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.12.0.0/24",
+                    "Gateway": "172.12.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {},
+        "Options": {
+            "com.docker.network.bridge.default_bridge": "true",
+            "com.docker.network.bridge.enable_icc": "true",
+            "com.docker.network.bridge.enable_ip_masquerade": "true",
+            "com.docker.network.bridge.host_binding_ipv4": "0.0.0.0",
+            "com.docker.network.bridge.name": "docker0",
+            "com.docker.network.driver.mtu": "1500"
+        },
+        "Labels": {}
+    }
+]
+
+
+"Subnet": "172.12.0.0/24"
+
+5)
+Run a container named alpine-2 using the alpine image and attach it to the none network.
+
+Hint:
+Run the command: 
+docker run --name alpine-2 --network=none alpine
+
+Done
+
+
+6)
+Create a new network named wp-mysql-network using the bridge driver. Allocate subnet 182.18.0.0/24. Configure Gateway 182.18.0.1
+
+Hint:
+Run the command: 
+docker network create --driver bridge --subnet 182.18.0.0/24 --gateway 182.18.0.1 wp-mysql-network
+
+Inspect the created network by:
+docker network inspect wp-mysql-network
+
+~ ➜  docker network create --driver bridge --subnet 182.18.0.0/24 --gateway 182.18.0.1 wp-mysql-network
+ff1e1865de67cc40c210f44f6493cd0a843349db8a5f5c90ef42f71d4d419332
+
+7)
+Deploy a mysql database using the mysql:5.7 image and name it mysql-db. Attach it to the newly created network wp-mysql-network
+Set the database password to use db_pass123. The environment variable to set is MYSQL_ROOT_PASSWORD.
+
+Hint:
+Run the command: 
+docker run -d -e MYSQL_ROOT_PASSWORD=db_pass123 --name mysql-db --network wp-mysql-network mysql:5.7
+
+~ ➜  docker run -d -e MYSQL_ROOT_PASSWORD=db_pass123 --name mysql-db --network wp-mysql-network mysql:5.7
+Unable to find image 'mysql:5.7' locally
+5.7: Pulling from library/mysql
+20e4dcae4c69: Pull complete 
+1c56c3d4ce74: Pull complete 
+e9f03a1c24ce: Pull complete 
+68c3898c2015: Pull complete 
+6b95a940e7b6: Pull complete 
+90986bb8de6e: Pull complete 
+ae71319cb779: Pull complete 
+ffc89e9dfd88: Pull complete 
+43d05e938198: Pull complete 
+064b2d298fba: Pull complete 
+df9a4d85569b: Pull complete 
+Digest: sha256:4bc6bc963e6d8443453676cae56536f4b8156d78bae03c0145cbe47c2aad73bb
+Status: Downloaded newer image for mysql:5.7
+39990e98e006137ecccff08daed8d90fad0660e611b23c0198bca4fb03e3a77d
+
+8)
+Deploy a web application named webapp using the kodekloud/simple-webapp-mysql image.
+
+Expose the container’s port 8080 to port 38080 on the host.
+
+The application makes use of two environment variable:
+1: DB_Host with the value mysql-db.
+2: DB_Password with the value db_pass123.
+Make sure to attach it to the newly created network called wp-mysql-network.
+
+Also make sure to link the MySQL and the webapp container.
+
+
+Hint:
+Run the command: 
+docker run --network=wp-mysql-network -e DB_Host=mysql-db -e DB_Password=db_pass123 -p 38080:8080 --name webapp --link mysql-db:mysql-db -d kodekloud/simple-webapp-mysql
+
+6d78ac3f73b008bbde2d840a02d35d862eede8390625383ff1365bf54669437b
+
+9)
+If you are successfull, you should be able to view the application by clicking on the HOST:38080 at the top of your terminal. You should see a green success message.
+
+SUCCESS!!!!!
+
+
+############################
+
+Docker Registry <------------------------------
+
+docker run nginx
+
+- the image is pulled from a repository
+
+image:useraccount/imagerepository
+
+dockerhub.io/library/nginx
+
+
+Private registry: <-------------------
+
+docker login private-registry.io
+
+
+Deploy Private Registry:
+docker run -d -p 5000:5000 --name registry registry:2
+
+docker image tag my-image localhost:5000/my-image
+
+docker push localhost:5000/my-image
+
+docker pull localhost:5000/my-image
+
+docker pull 192.168.56.100:5000/my-image
+
+
+###################################
+
+LABS: Docker Registry <------------------------------
+
+If you can't explain it simply you don't understand it well enough.
+– Albert Einstein
+
+1)
+In this lab we will explore some concepts related to Docker Registry and also practice setting up our own simple registry server.
+
+2)
+What is a Docker Registry?
+
+A storage and distribution system for Docker images.
+
+
+3)
+By default, the Docker engine interacts with ?
+
+DockerHub.
+
+
+4)
+DockerHub is a hosted registry solution by Docker Inc.
+
+Besides public and private repositories, it also provides:
+automated builds,
+integration with source control solutions like Github and Bitbucket etc.
+
+
+5)
+Which command is used for Login to a self-hosted registry?
+
+docker login [SERVER]
+
+6)
+Let practice deploying a registry server on our own.
+Run a registry server with name equals to my-registry using registry:2 image with host port set to 5000, and restart policy set to always.
+Note: Registry server is exposed on port 5000 in the image.
+Here we are hosting our own registry using the open source Docker Registry.
+NOTE: You do not need to run docker login for this local registry setup because authentication is not configured. This registry allows for anonymous access.
+
+Hint:
+As exposed port inside the image is 5000, we need to specify it using "docker run -d -p [hostPort]:[containerPort]..."
+
+Solution:
+docker run -d -p 5000:5000 --restart=always --name my-registry registry:2
+
+
+7)
+Now its time to push some images to our registry server. Let's push two images for now .i.e. nginx:latest and httpd:latest.
+Note: Don't forget to pull them first.
+To check the list of images pushed , use curl -X GET localhost:5000/v2/_catalog
+
+Hint:
+Before pushing the images, re-tag them with docker image tag command.
+
+Solution:
+Run: 
+docker pull nginx:latest 
+
+then,
+
+docker image tag nginx:latest localhost:5000/nginx:latest
+
+and finally push it using
+
+docker push localhost:5000/nginx:latest.
+
+We will use the same steps for the second image 
+
+docker pull httpd:latest 
+
+and then 
+
+docker image tag httpd:latest localhost:5000/httpd:latest 
+
+and finally push it using 
+
+docker push localhost:5000/httpd:latest
+
+
+8)
+Let's remove all the dangling images we have locally. Use docker image prune -a to remove them. How many images do we have now?
+Note: Make sure we don't have any running containers except our registry-sever.
+To get list of images use: docker image ls
+
+~ ➜  docker image prune -a                                     
+WARNING! This will remove all images without at least one container associated to them.
+Are you sure you want to continue? [y/N] y
+Deleted Images:
+<TRUNCATED>
+
+~ ➜  docker ps -a                           
+CONTAINER ID   IMAGE        COMMAND                  CREATED         STATUS         PORTS                                       NAMES
+2402641c3ebf   registry:2   "/entrypoint.sh /etc…"   4 minutes ago   Up 4 minutes   0.0.0.0:5000->5000/tcp, :::5000->5000/tcp   my-registry
+
+~ ➜  docker image ls      
+REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
+registry     2         26b2eb03618e   2 years ago   25.4MB
+
+1
+
+
+9)
+Now we can pull images from our registry-server as well. Use docker pull [server-addr/image-name] to pull the images that we pushed earlier.
+
+In our case we can use: 
+
+docker pull localhost:5000/nginx
+
+~ ➜  docker pull localhost:5000/nginx       
+Using default tag: latest
+latest: Pulling from nginx
+b21337b36fa4: Pull complete 
+46bf3a120c8e: Pull complete 
+4f4efe02d542: Pull complete 
+7b6cb8ccac7b: Pull complete 
+f73400a233fd: Pull complete 
+47cd406a84ef: Pull complete 
+bae5a1799a80: Pull complete 
+Digest: sha256:4a027e20a3f6606ecdc4a5e412ac16c636d1cdb4b390d92a8265047b6873174c
+Status: Downloaded newer image for localhost:5000/nginx:latest
+localhost:5000/nginx:latest
+
+10)
+Let's clean up after ourselves.
+Stop and remove the my-registry container.
+
+Hint:
+Make sure to run docker rm after docker stop command.
+
+Solution:
+Use: 
+docker stop my-registry 
+
+and then,
+docker rm my-registry
+
+~ ➜  docker stop my-registry
+my-registry
+
+~ ➜  docker rm my-registry
+my-registry
+
+
+#############################
+
+Docker on Windows <---------------------------
+
+Docker on Windows using Docker Toolbox.
+Docker Desktop for Windows.
+
+Docker toolbox:
+- Oracle Virtualbox
+- Docker Engine
+- Docker Machine
+- Docker Compose
+- Kitematic GUI
+
+64 bit OS.
+Windows 7 or higher.
+Virtualization is enabled.
+
+
+Docker Desktop for Windows:
+Windows 10 Enterprise/Professional edition
+Windows Server 2016 
+- support for docker containers.
+
+Linux container or Windows containers.
+
+Windows containers!!!!!
+- Container types:
+Windows Server
+Hyper-V Isolation
+
+Base Images:
+Windows Server Core.
+Nano server.
+
+Support:
+- Windows Server 2016.
+- Name Server.
+- Windows 10 Professional and Enterprise (Hyper-V Isolated Containers).
+
+#########################
+
+Docker on MAC <------------------------------
+
+Docker on Mac using Docker Toolbox!!!!
+
+Docker toolbox:
+- Oracle Virtualbox
+- Docker Engine
+- Docker Machine
+- Docker Compose
+- Kitematic GUI
+
+MacOS 10.8 or newer.
+
+
+Docker Desktop on Mac!!!
+macOS Sierra 10.12 or newer.
+Mac Hardware - 2010 moder or newer.
+
+Running Linux containers.
+
+#####################
+
+Container Orchestration <------------------------------
+
+docker run nodejs
+
+- multiple docker hosts.
+
+docker service create --replicas=100 nodejs
+
+Solutions:
+Docker Swarm (lacks some advanced auto-scaling features for production application environments, but it's easy to setup)
+Kubernetes (the most popular, difficult to setup, but has support for many vendors)
+MESOS (difficult to setup, but has many advanced applications features for production)
+
+
+################
+
+Docker Swarm <--------------------------
+
+- combine multiple machines together into separate hosts for HA and load balancing.
+
+Swarm manager and worker nodes.
+
+#run on manager.
+docker swarm init
+
+#run on worker nodes.
+docker swarm join --token <token>
+
+Docker service - key component of Docker Swarm to run the Docker Swarm cluster.
+
+#run on the manager
+docker service create --replicas=3 my-web-server
+
+docker service create --replicas=3 -p 8080:80 my-web-server
+
+docker service create --replicas=3 --network frontend my-web-server
+
+#######################
+
+Kubernetes Introduction <------------------------
+
+- kubernetes cluster
+
+kubectl run --replicas=10000 my-web-server
+
+kubectl scale --replicas=2000 my-web-server
+
+kubectl rolling-update my-web-server --image=web-server:2
+
+kubectl rolling-update my-web-server --rollback
+
+
+A node runs multiple docker containers. If the node goes down, all docker containers go down.
+
+In a cluster, there are multiple nodes, running docker containers applications in a HA and LoadBalancing fashion.
+
+The MASTER has kubernetes components and (script) services running: API server, etcd, kubelet, container runtime, controller, scheduler.
+
+kubectl run hello-minikube
+
+kubectl cluster-info
+
+kubectl get nodes
+
+#run my app
+kubectl run my-web-app --image=my-web-app --replicas=100
+
+##########################
+
+Bonus Lecture: Introduction to YAML <------------------------
+
+A YAML file is used to represent data.
+
+
+
+##############
+
+Bonus Lecture: LABS - YAML <-----------------
+
+Sometimes things aren’t clear right away. That’s where you need to be patient and persevere and see where things lead.
+– Mary Pierce
+
+1)
+Which of the following is used to separate the key and value in YAML?
+
+Solution:
+The key and value is separated by a colon i.e : in YAML.
+
+2)
+How many array keys are there in the following yaml snippet?
+
+Fruits:
+  - Orange
+  - Apple
+  - Banana
+Vegetables:
+  - Carrot
+  - CauliFlower
+  - Tomato
+  
+Solution:
+This yaml snippet has 2 array keys, Fruits and Vegetables.
+
+3)
+Which of the following statements is true?
+
+A. Dictionary is an unordered collection whereas list is an ordered collection.
+
+
+B. Dictionary is an ordered collection whereas list is an unordered collection.
+
+
+C. Dictionary and list, both are an ordered collection.
+
+
+D. Dictionary and list, both are an unordered collection.
+
+
+Solution:
+Dictionary is an unordered collection whereas list is an ordered collection.
+
+A
+
+
+4)
+There is a yaml file named practice.yaml under /home/bob/playbooks/ directory with a key property1 and value value1.
+Add an additional key named property2 and value value2.
+
+Solution:
+Edit the given yaml.
+
+vi /home/bob/playbooks/practice.yaml
+
+Update the file as below.
+
+property1: value1
+property2: value2
+
+[bob@student-node playbooks]$ cat practice.yaml 
+property1: value1
+[bob@student-node playbooks]$ 
+
+Done
+
+5)
+We have updated the /home/bob/playbooks/practice.yaml file with the key name and value apple. Add some additional properties (given below) to the dictionary.
+
+name= apple
+color= red
+weight= 90g
+
+Solution:
+Edit the given yaml.
+
+vi /home/bob/playbooks/practice.yaml
+
+Update the file as below.
+
+name: apple
+color: red
+weight: 90g
+
+
+6)
+We have updated the /home/bob/playbooks/practice.yaml file with a dictionary named employee. Add the remaining properties to it using information from the table below.
+
+Key/Property 	Value
+name 	john
+gender 	male
+age 	24
+
+Solution:
+Edit the given yaml.
+
+vi /home/bob/playbooks/practice.yaml
+
+Update the file as below.
+
+employee:
+  name: john
+  gender: male
+  age: 24
+
+7)
+Now, update the /home/bob/playbooks/practice.yaml file with a dictionary in dictionary.
+
+Add a dictionary named address to add the address information in this file.
+
+Key/Property 	Value
+city 	edison
+state 	new jersey
+country 	united states
+
+Solution:
+employee:
+  name: john
+  gender: male
+  age: 24
+  address:
+    city: edison
+    state: new jersey
+    country: united states
+	
+8)
+We have updated the /home/bob/playbooks/practice.yaml file with an array of apples. Add a new apple to the list to make it a total of 4.
+
+- apple
+- apple
+- apple
+- apple
+
+9)
+In /home/bob/playbooks/practice.yaml, add two more values apple to make it 6.
+
+- apple
+- apple
+- apple
+- apple
+- apple
+- apple
+
+10)
+We have updated the /home/bob/playbooks/practice.yaml file with some data for apple, orange and mango. Just like apple, we would like to add additional details for each item, such as color, weight etc. Modify the remaining items to match the below data.
+
+orange
+color 	weight
+orange 	90g
+
+mango
+color 	weight
+yellow 	150g
+
+11)
+We have updated the /home/bob/playbooks/practice.yaml file with a dictionary named employee. 
+We would like to record information about multiple employees. 
+Convert the dictionary named employee to an array named employees.
+
+employees:
+  - name: john
+    gender: male
+    age: 24
+	
+12)
+Update the /home/bob/playbooks/practice.yaml file to add an additional employee (below the existing entry) to the list using the below information.
+
+Key/Property 	Value
+name 	sarah
+gender 	female
+age 	28
+
+employees:
+  - name: john
+    gender: male
+    age: 24
+  - name: sarah
+    gender: female
+    age: 28
+	
+13)
+We have updated the /home/bob/playbooks/practice.yaml file to add some more details. Now add the employee payslip information by adding an array called payslips. Remember, while address is a dictionary, payslips is an array of month and amount.
+
+payslips
+month 	amount
+june 	1400
+july 	2400
+august 	3400
+
+employee:
+  name: john
+  gender: male
+  age: 24
+  address:
+    city: edison
+    state: new jersey
+    country: united states
+  payslips:
+    - month: june
+      amount: 1400
+    - month: july
+      amount: 2400
+    - month: august
+      amount: 3400
+	  
+#########################################
+
+THE END!!!!!!!!
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
