@@ -1,0 +1,102 @@
+How to add Nginx in front of Cribl
+in Docker for free!
+
+Step 1. Install docker
+
+docker.com <--- get the installer
+for your operating system and
+install
+
+Note you may have to restart your
+computer, so now's a good time
+to bookmark this video, hit the 
+like or subscribe, that way you 
+can get back to step 2 after the
+restart.
+
+Step 2. Verify docker is up and
+running
+
+Step 3. Create a new directory
+and a docker-compose.yml file:
+
+Windows:
+start -> run -> cmd
+
+mkdir criblWithNginx
+cd criblWithNginx
+notepad docker-compose.yml
+
+paste in contents of "docker-
+compose.yml" from link below
+"https://github.com/bentleymi/
+misc/tree/main/docker/cribl"
+
+Step 4. Run docker compose:
+
+docker compose up -d --scale 
+workers=2
+
+Step 5. Create a new nginx stream
+configuration:
+
+docker exec -it criblwithnginx-nginx-1 /bin/sh
+apk add nginx-mod-stream
+mv /etc/nginx/conf.d/stream.conf /etc/nginx/stream.conf
+echo 'include /etc/nginx/stream.conf;' >> /etc/nginx/nginx.conf
+vi /etc/nginx/stream.d/5140.conf
+
+Press "i" for "insert"
+Paste in the 5140.conf file from 
+github
+
+server {
+ listen 5140;
+ proxy_pass 5140_tcp_backend;
+}
+
+upstream 5140_tcp_backend {
+ least_conn;
+ server criblWithNginx-workers-1:5140;
+ server criblWithNginx-workers-2:5140;
+}
+
+Press "escape" key, then 
+type ":wq" and press 
+"return/enter"
+
+nginx -t
+nginx -s reload
+netstat -an | grep 5140
+
+Step 6. From Cribl Stream Leader
+node, modify the worker group to
+enable syslog inbound on port 
+5140, Commit it and Deploy it:
+
+Step 7. Watch the live data and
+then create some test traffic
+from your nginx host:
+
+curl localhost:5140 -d "test"
+
+Step 8. Continue watching and
+send data from your machine to
+nginx
+
+Windows:
+start -> run -> powershell
+invoke-webrequest http://localhost:5140
+
+Step 9. Share with your friends
+and family!  Hit the like button,
+subscribe for more!
+
+Step 10. PPPPPPPPPPPPPRoooofit!!!
+
+
+
+
+
+
+

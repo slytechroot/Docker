@@ -1,0 +1,77 @@
+How to Configure Cribl Stream on Ubuntu to send 
+to Cribl Stream workers in Docker w/NGINX NLB
+for free!
+
+Step 1. Complete the following Prereq:
+1.  How to add Nginx in front of Cribl in Docker
+for free! :
+
+https://www.youtube.com/watch?v=krduLfIF96s
+
+Step 2. Modify the docker-compose.yml for the 
+criblWithNginx project we created in Step 1.
+
+Windows: 
+Start -> Run -> CMD
+
+cd criblwithnginx
+notepad docker-compose.yml
+
+replaced the contents with those found on our 
+github:  
+
+github.com/bentleymi/misc/blob/main/docker/cribl/
+docker-compose1.yml
+
+Save the file:  alt + f then s  OR file -> save
+
+
+Step 3. Delete the old environment.
+
+Step 4. Use docker compose to rebuild the environment
+docker compose up -d --scale workers=2
+
+Step 5. Install Cribl Stream on Ubuntu:
+docker exec -it criblwithnginx-ubuntu-1 bash
+
+apt-get update && apt-get install curl -y
+cd /opt
+curl -Lso - $(curl https://cdn.cribl.io/dl/latest-x64) | tar zxv
+/opt/cribl/bin/cribl start
+
+Step 6. Open the Ubuntu Cribl UI in a browser
+http://localhost:9001/stream
+user:  admin
+pass:  admin
+Register the product, tell them we sent you
+change your password
+
+Step 7. Add your NGINX instance as a Data Destination
+click data -> destinations -> syslog
+
+click "add destination"
+Give it an output ID
+Add the destination:  criblwithnginx-nginx-1:5140
+Click save
+
+Step 8. Log into the Manager, Capture data, and run 
+the test from the ubuntu instance.
+
+Login to manager
+Go to home -> click on your default worker group
+OR 
+Go to manage -> click on the worker group
+Go to data -> sources -> syslog
+Click on live, stop, capture, make sure capture 
+time is over a minute or so.  120s is great.
+Click on start
+
+On ubuntu instance:
+Click on syslog output, then test tab, and run test
+
+If you get "success" then you should see data in 
+Cribl preview/live capture from the manager.
+
+Step 9. Share with your family and friends.
+
+Step 10.  PROFIT!!!

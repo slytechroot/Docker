@@ -1,0 +1,52 @@
+Lets setup a docker environment
+
+
+Step 1. Install Docker
+
+docker.com <---- go here, get
+the installer needed for your 
+operating system and follow the
+instructions to install it.
+
+You may have to restart your 
+computer.  
+
+Step 2.  Make sure docker is run-
+ing by opening docker desktop, or
+verifying otherwise in Mac or Nix
+
+Windows only!
+another method: services.msc
+
+Step 3. Pull Cribl Image
+
+Suggest creating a working dir
+then use docker pull {image}/
+{versionTag}
+
+Often times its:
+app/latest or sometimes you'll
+see app:latest. 
+
+Step 4. Run the cribl image
+
+"docker run -p 9000:9000 -it 
+cribl/cribl"
+
+Step 5. Verify the app is up
+
+Step 6. Login as admin:admin
+
+Step 7. Register the product
+
+Step 8. Change the password
+
+Step 9. Share this video!
+
+Step 10. Profit!!!
+
+Thanks for watching! Please share 
+with those who would benefit!
+
+
+

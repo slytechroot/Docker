@@ -1,0 +1,85 @@
+How to create a distributed stream 
+deployment on your local docker lab
+for free.
+
+Step 1. Install Docker
+
+docker.com <---- go here, get
+the installer needed for your 
+operating system and follow the
+instructions to install it.
+
+You may have to restart your 
+computer.
+
+Step 2. Make sure docker is running
+by opening docker desktop, or verifying
+otherwise...
+
+Step 3. Create a directory called 
+"myTestEnv" and change directory to it:
+
+Windows:
+start -> run -> cmd
+mkdir myTestEnv
+cd myTestEnv
+
+Step 4. Create a docker-compose.yml file
+
+notepad docker-compose.yml
+
+(You will be asked if you want to create the 
+file if it doesnt exist, please answer yes to 
+this question if asked)
+
+Step 5. Copy the contents from cribl.io
+to docker-compose.yml and save:
+
+docs.cribl.io/stream/deploy-docker
+
+
+Step 6. Run docker-compose command:
+
+docker-compose up
+
+Step 7. Verify leader node is up and log 
+in as admin:admin
+
+http://localhost:19000
+
+Step 8. Register the product & change the
+password
+
+Step 9. Share this video with friends and
+family!
+
+Step 10. Profit!
+
+
+Step 11. Add more workers (BONUS)
+
+docker-compose up -d --scale workers=2
+
+-d will create a daemon so you dont see 
+the logs in the window anymore
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

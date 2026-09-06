@@ -1,0 +1,52 @@
+How to install Cribl Edge on an Ubuntu 
+instance in Docker absolutely free!
+
+Step 1. Install Docker
+
+docker.com <---- go here, get
+the installer needed for your 
+operating system and follow the
+instructions to install it.
+
+You may have to restart your 
+computer.
+
+Step 2. Make sure docker is running
+by opening docker desktop, or verifying
+otherwise...
+
+Step 3. Pull ubuntu:latest and run it
+interactively all in one step:
+
+Windows:
+start -> run -> cmd
+docker run -p 9001:9000 -it ubuntu:latest bash
+
+Step 4. Update Ubuntu's package manager:
+
+apt-get update
+
+Step 5. Install curl
+
+apt-get install curl -y
+
+Step 6. Change directory to /opt and install
+cribl:
+
+cd /opt
+curl -Lso - $(curl https://cdn.cribl.io/dl/latest-x64) | tar zxv
+
+https://cribl.io/download/ <- for other installers / options
+
+Step 7. Start cribl:
+
+/opt/cribl/bin/cribl start
+
+Step 8. Verify Cribl is up and running, login as admin:admin
+and register the product.  
+
+http://localhost:9001
+
+Step 9. Share with your friends and family!
+
+Step 10. Profit!
